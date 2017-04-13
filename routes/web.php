@@ -11,12 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+Route::get('/category/', 'AdvertController@index')->name('category');
 
 Auth::routes();
 Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
-
-Route::get('/home', 'HomeController@index');

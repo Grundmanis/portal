@@ -1,4 +1,3 @@
-
 // Body
 $body-bg: #f5f8fa;
 
@@ -17,7 +16,8 @@ $brand-warning: #cbb956;
 $brand-danger: #bf5329;
 
 // Typography
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$bootstrap-sass-asset-helper: true;
+$icon-font-path: if($bootstrap-sass-asset-helper, "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/", "../fonts/bootstrap/") !default;
 $font-family-sans-serif: "Raleway", sans-serif;
 $font-size-base: 14px;
 $line-height-base: 1.6;

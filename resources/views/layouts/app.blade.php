@@ -42,29 +42,57 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+                    {{--<ul class="nav navbar-nav">--}}
+                        {{--<li><a href="{{ route('login') }}">Login</a></li>--}}
+                        {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
+                    {{--</ul>--}}
+
+                    <div class="col-sm-6 col-md-6">
+                        <form class="navbar-form" role="search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search" name="q">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-success" type="submit">Go!</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login/twitter/') }}">Twitter login</a></li>
-                            <li><a href="{{ url('/login/facebook/') }}">Facebook login</a></li>
-                            <li><a href="{{ url('/login/github/') }}">Github login</a></li>
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
 
-                                <ul class="dropdown-menu" role="menu">
+                        <!-- Authentication Links -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                @if (Auth::guest()) Account @else {{ Auth::user()->name }} @endif
+                                <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        My Favorites
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        My Comparing
+                                    </a>
+                                </li>
+                                @if (Auth::guest())
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                    <li><a href="{{ route('register') }}">Register</a></li>
+                                @else
+                                    <li>
+                                        <a href="#">
+                                            My adverts
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
+                                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
@@ -73,18 +101,37 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                </ul>
-                            </li>
-                        @endif
+                                @endif
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">English <span class="caret"></span></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Latviešu</a></li>
+                                <li><a href="#">Русский</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         @yield('content')
+
+        <footer class="footer">
+            <div class="container">
+                <p>footer here</p>
+            </div>
+        </footer>
+
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
+    @yield('scripts')
+
 </body>
 </html>

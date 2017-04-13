@@ -7,3 +7,18 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Header navbar
+@import "header";
+
+// Sticky footer
+@import "footer";
+
+// Home/Category page
+@import "home";
+
+// Login page
+@import "login";
+
+// Adverts page
+@import "adverts";
