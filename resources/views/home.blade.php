@@ -89,40 +89,40 @@
     </div-->
 
     <div class="button-group text-center">
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-success category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-success category-title">
             Work
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-info category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-info category-title">
             Transport
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-primary category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-primary category-title">
             Property
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-danger category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-danger category-title">
             Building
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-warning category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-warning category-title">
             Electrical Engineering
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-success category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-success category-title">
             Clothes
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-info category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-info category-title">
             For home
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-primary category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-primary category-title">
             Production
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-danger category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-danger category-title">
             For kids
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-warning category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-warning category-title">
             Animals
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-success category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-success category-title">
             Agriculture
         </button>
-        <button onclick="location.href= '{{ route('category') }}'" class="btn btn-info category-title">
+        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-info category-title">
             Leisure, hobbies
         </button>
     </div>

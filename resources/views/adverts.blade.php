@@ -2,14 +2,12 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12 navbar">
-                <strong>Category Title</strong>
-                <div class="btn-group">
-                    <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+        <div class="well well-sm">
+            <strong>Category Title</strong>
+            <div class="btn-group">
+                <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
             </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                                class="glyphicon glyphicon-th"></span>Grid</a>
-                </div>
+                            class="glyphicon glyphicon-th"></span>Grid</a>
             </div>
         </div>
         <div id="products" class="row list-group">
