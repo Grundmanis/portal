@@ -12,8 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('/categories/', 'CategoryController@index')->name('categories');
-Route::get('/categories/adverts/', 'AdvertController@index')->name('categories.adverts');
+Route::get('/adverts/', 'AdvertController@index')->name('adverts');
 
 Auth::routes();
 Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');

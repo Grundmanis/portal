@@ -89,42 +89,13 @@
     </div-->
 
     <div class="button-group text-center">
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-success category-title">
-            Work
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-info category-title">
-            Transport
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-primary category-title">
-            Property
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-danger category-title">
-            Building
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-warning category-title">
-            Electrical Engineering
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-success category-title">
-            Clothes
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-info category-title">
-            For home
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-primary category-title">
-            Production
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-danger category-title">
-            For kids
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-warning category-title">
-            Animals
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-success category-title">
-            Agriculture
-        </button>
-        <button onclick="location.href= '{{ route('categories') }}'" class="btn btn-info category-title">
-            Leisure, hobbies
-        </button>
+        @foreach($categories as $category)
+            @if (!$category->parent_id)
+            <button onclick="location.href= '{{ route('adverts') }}'" class="btn btn-{{ $category->color ? $category->color : 'danger' }} category-title">
+                {{ $category->name }}
+            </button>
+            @endif
+        @endforeach
     </div>
 
 </div>
