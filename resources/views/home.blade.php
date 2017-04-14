@@ -92,7 +92,7 @@
         @foreach($categories as $category)
             @if (!$category->parent_id)
             <button onclick="location.href= '{{ route('adverts') }}'" class="btn btn-{{ $category->color ? $category->color : 'danger' }} category-title">
-                {{ $category->name }}
+                {{ $category->translation->keyBy('lng')['en']->name }}
             </button>
             @endif
         @endforeach

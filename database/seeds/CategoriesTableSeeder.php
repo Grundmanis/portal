@@ -15,107 +15,107 @@ class CategoriesTableSeeder extends Seeder
         try {
             DB::table('categories')->insert([
                 [
-                    'name' => 'Work and Business',
+                    'slug' => 'Work and Business',
                     'color' => 'success',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Transport',
+                    'slug' => 'Transport',
                     'color' => 'info',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Property',
+                    'slug' => 'Property',
                     'color' => 'primary',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Building',
+                    'slug' => 'Building',
                     'color' => 'danger',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Electrical Engineering',
+                    'slug' => 'Electrical Engineering',
                     'color' => 'warning',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Clothes',
+                    'slug' => 'Clothes',
                     'color' => 'success',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'For home',
+                    'slug' => 'For home',
                     'color' => 'info',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Production',
+                    'slug' => 'Production',
                     'color' => 'primary',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'For kids',
+                    'slug' => 'For kids',
                     'color' => 'danger',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Animals',
+                    'slug' => 'Animals',
                     'color' => 'warning',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Agriculture',
+                    'slug' => 'Agriculture',
                     'color' => 'success',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Leisure, hobbies',
+                    'slug' => 'Leisure, hobbies',
                     'color' => 'info',
                     'parent_id' => 0
                 ],
                 [
-                    'name' => 'Vacancies',
+                    'slug' => 'Vacancies',
                     'color' => '',
                     'parent_id' => 1
                 ],
                 [
-                    'name' => 'Internet services',
+                    'slug' => 'Internet services',
                     'color' => '',
                     'parent_id' => 1
                 ],
                 [
-                    'name' => 'Search for a job',
+                    'slug' => 'Search for a job',
                     'color' => '',
                     'parent_id' => 1
                 ],
                 [
-                    'name' => 'Passenger cars',
+                    'slug' => 'Passenger cars',
                     'color' => '',
                     'parent_id' => 2
                 ],
                 [
-                    'name' => 'Freight cars',
+                    'slug' => 'Freight cars',
                     'color' => '',
                     'parent_id' => 2
                 ],
                 [
-                    'name' => 'Bikes',
+                    'slug' => 'Bikes',
                     'color' => '',
                     'parent_id' => 2
                 ],
                 [
-                    'name' => 'Apartments',
+                    'slug' => 'Apartments',
                     'color' => '',
                     'parent_id' => 3
                 ],
                 [
-                    'name' => 'Houses',
+                    'slug' => 'Houses',
                     'color' => '',
                     'parent_id' => 3
                 ],
                 [
-                    'name' => 'Offices',
+                    'slug' => 'Offices',
                     'color' => '',
                     'parent_id' => 3
                 ],
