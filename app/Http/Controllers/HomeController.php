@@ -15,6 +15,8 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('home',compact('categories'));
+        return view('home',[
+            'categories' => json_encode($categories)
+        ]);
     }
 }
