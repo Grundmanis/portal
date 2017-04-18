@@ -4,8 +4,7 @@
 <div class="container">
 
     <categories
-        categories="{{$categories}}"
-        adverts_route="{{route('adverts')}}"
+        category_list="{{$categories}}"
     >
     </categories>
 

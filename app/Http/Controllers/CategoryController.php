@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class CategoryController extends Controller
 {
+    /**
+     * @return mixed
+     */
     public function index() {
         return view('categories');
     }

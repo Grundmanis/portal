@@ -61,6 +61,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
 
+                        <li>
+                            <div class="navbar-form">
+                                <a href="{{ route('adverts.create') }}" class="btn btn-success">Add advert</a>
+                            </div>
+                        </li>
+
                         <!-- Authentication Links -->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

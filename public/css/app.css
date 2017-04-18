@@ -7726,6 +7726,27 @@ body {
   margin: 10px;
 }
 
+.breadcrumb a {
+  cursor: pointer;
+}
+
+.subcategories {
+  padding: 0;
+  margin: 0;
+}
+
+.subcategories li {
+  list-style: none;
+  padding: 3px 0;
+  margin: 0;
+}
+
+.subcategories li a {
+  display: block;
+  padding: 5px 10px;
+  background-color: #fff;
+}
+
 .login-or {
   position: relative;
   font-size: 18px;
@@ -7753,60 +7774,26 @@ body {
   text-align: center;
 }
 
-.glyphicon {
-  margin-right: 5px;
+.slide {
+  display: none;
 }
 
-.thumbnail {
-  margin-bottom: 20px;
-  padding: 0px;
-  border-radius: 0px;
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
 }
 
-.thumbnail .caption {
-  background-color: #fff;
+.slide-fade-leave-active {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
 }
 
-.item.list-group-item {
-  float: none;
-  width: 100%;
-  background-color: #fff;
-  margin-bottom: 10px;
-  padding: 0;
-  border: none;
-}
-
-.item.list-group-item .list-group-image {
-  margin-right: 10px;
-}
-
-.item.list-group-item .thumbnail {
-  margin-bottom: 0px;
-}
-
-.item.list-group-item .caption {
-  padding: 9px 9px 0px 9px;
-}
-
-.item.list-group-item:nth-of-type(odd) {
-  background: #eeeeee;
-}
-
-.item.list-group-item:before, .item.list-group-item:after {
-  display: table;
-  content: " ";
-}
-
-.item.list-group-item img {
-  float: left;
-}
-
-.item.list-group-item:after {
-  clear: both;
-}
-
-.list-group-item-text {
-  margin: 0 0 11px;
+.slide-fade-enter, .slide-fade-leave-to {
+  -webkit-transform: translateX(10px);
+  transform: translateX(10px);
+  opacity: 0;
 }
 
 /*# sourceMappingURL=app.css.map */

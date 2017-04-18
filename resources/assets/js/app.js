@@ -14,6 +14,10 @@ require('./bootstrap');
  */
 
 Vue.component('categories', require('./components/Categories.vue'));
+Vue.component('adverts', require('./components/adverts/Adverts.vue'));
+Vue.component('newadvert', require('./components/adverts/NewAdvert.vue'));
+
+Vue.http.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
 
 const app = new Vue({
     el: '#app'

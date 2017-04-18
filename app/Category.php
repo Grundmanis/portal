@@ -6,15 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $translations;
-    protected $with = ['translation'];
+    protected $with = ['translation','subcategories','filters'];
 
     public function translation() {
         return $this->hasOne(CategoryTranslations::class)->where('lng','en');
     }
 
-    public function getTranslationAttribute($value) {
-        dd($value);
+    public function subcategories() {
+        return $this->belongsToMany(Subcategory::class);
+    }
+    
+    public function filters() {
+        return $this->hasMany(CategoryFilter::class);
     }
 
 }
