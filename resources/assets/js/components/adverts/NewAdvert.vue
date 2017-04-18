@@ -99,8 +99,7 @@
             publish() {
                 this.advert.category_id = this.category;
                 this.$http.post('/adverts/add/', this.advert).then(function(response) {
-                    console.log(response.data);
-                    console.log(response.data.advert);
+                    location.href = response.data.redirect;
                 });
             }
         }

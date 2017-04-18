@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\Category;
 use App\Http\Requests\AdvertsListRequest;
+use App\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +57,7 @@ class AdvertController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request) {
+
         return view('adverts/show', [
             'advert' => $request->advert,
             'category' => $request->category,
@@ -71,13 +73,19 @@ class AdvertController extends Controller
      */
     public function store(Request $request)
     {
+
         $advert = new Advert($request->all());
         $advert->user_id = Auth::user()->id;
         $advert->save();
 
+        // TODO 
+        $category = Category::find($request->category_id);
+        $subcategory = Subcategory::find($request->subcategory_id);
+
         return response()->json([
             'message' => 'New advert is created',
-            'advert' => $advert
+            'advert' => $advert,
+            'redirect' => route('adverts.show',[$category->slug,$subcategory->slug, $advert->id])
         ]);
     }
     
