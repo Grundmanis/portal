@@ -24,15 +24,15 @@ class AdvertController extends Controller
             ->where('subcategory_id', $request->subcategory->id)
             ->paginate($request->per_page ? $request->per_page : 2);
 
+        foreach ($adverts as $k => $advert) {
+            $advert->idFilters = $advert->filters->keyBy('id');
+            $adverts[$k] = $advert;
+        }
+
         if ($request->ajax()) {
             return response()->json([
                 'adverts' => $adverts
             ]);
-        }
-
-        foreach ($adverts as $k => $advert) {
-            $advert->idFilters = $advert->filters->keyBy('id');
-            $adverts[$k] = $advert;
         }
 
         return view('adverts/index', [

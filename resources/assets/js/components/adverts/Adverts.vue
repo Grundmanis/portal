@@ -115,7 +115,6 @@
             }
         },
         mounted() {
-            console.log(this.adverts);
             this.totalPages = Math.ceil(this.adverts.total / this.adverts.per_page);
         },
         watch: {
