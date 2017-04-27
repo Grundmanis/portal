@@ -26,6 +26,23 @@
                             <option>6</option>
                         </select>
                     </div>
+
+                    <div class="form-group" v-for="filter in category.filters">
+
+                        <p>
+                            <label :for="filter.name">{{ filter.name }}</label>
+                        </p>
+
+                        <select v-if="filter.type == 'select'" class="form-control" :id="filter.name" v-on:change="changeFilters">
+                            <option v-for="value in JSON.parse(filter.value)">
+                                {{ value }}
+                            </option>
+                        </select>
+
+                        <input v-if="filter.type == 'input'" class="form-control" :id="filter.name" type="text" v-on:keyup="changeFilters">
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -111,7 +128,7 @@
                 totalPages: 1,
                 perPage: 2,
                 showAs: 'table',
-                test: { "id": 3, "advert_id": 1, "filter_id": 3, "value": "9:00", "created_at": null, "updated_at": null, "values": { "id": 3, "category_id": 13, "name": "work_time", "main": 1, "type": "input", "value": "", "created_at": null, "updated_at": null } }
+                appliedFilters: []
             }
         },
         mounted() {
@@ -142,6 +159,17 @@
                 this.$http.get(location.href + '?page='+this.adverts.current_page+'&per_page='+this.perPage).then(function(response) {
                     this.adverts = response.data.adverts;
                 });
+            },
+            changeFilters(e) {
+                if (e.target.value) {
+                    if (!this.appliedFilters[e.target.id]) {
+                        this.appliedFilters.length = this.appliedFilters.length + 1;
+                    }
+                    this.appliedFilters[e.target.id] = e.target.value;
+                } else {
+                    delete this.appliedFilters[e.target.id];
+                    this.appliedFilters.length = this.appliedFilters.length - 1;
+                }
             }
         }
     }
