@@ -34,6 +34,15 @@
           {{ $advert->text }}
         </p>
 
+        <table class="table table-bordered">
+            @foreach($category->filters as $filter)
+                <tr>
+                    <td>{{ $filter->name }}</td>
+                    <td>{{ isset($advertFilters[$filter->id]) ? $advertFilters[$filter->id]->value : '' }}</td>
+                </tr>
+            @endforeach
+        </table>
+
         <div class="row">
             <div class="col-sm-4">
                 <table class="table table-bordered">

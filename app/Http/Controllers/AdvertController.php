@@ -57,9 +57,9 @@ class AdvertController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request) {
-
         return view('adverts/show', [
             'advert' => $request->advert,
+            'advertFilters' => $request->advert->filters->keyBy('id'),
             'category' => $request->category,
             'subcategory' => $request->subcategory,
         ]);
