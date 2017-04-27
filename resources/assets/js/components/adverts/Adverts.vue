@@ -35,6 +35,9 @@
                 <tr>
                     <th width="1">id</th>
                     <th>text</th>
+                    <th v-if="filter.main" v-for="filter in category.filters">
+                        {{ filter.name }}
+                    </th>
                     <th width="1">created</th>
                 </tr>
             </thead>
@@ -46,6 +49,9 @@
                             {{ advert.text }}
                         </a>
                     </td>
+                    <th v-if="filter.main" v-for="filter in category.filters">
+                         {{ advert.idFilters[filter.id] ? advert.idFilters[filter.id].value : '' }}
+                    </th>
                     <td>{{ advert.created_at }}</td>
                 </tr>
             </tbody>
@@ -104,7 +110,8 @@
                 subcategory: JSON.parse(this.subcategory_list),
                 totalPages: 1,
                 perPage: 2,
-                showAs: 'table'
+                showAs: 'table',
+                test: { "id": 3, "advert_id": 1, "filter_id": 3, "value": "9:00", "created_at": null, "updated_at": null, "values": { "id": 3, "category_id": 13, "name": "work_time", "main": 1, "type": "input", "value": "", "created_at": null, "updated_at": null } }
             }
         },
         mounted() {

@@ -30,6 +30,11 @@ class AdvertController extends Controller
             ]);
         }
 
+        foreach ($adverts as $k => $advert) {
+            $advert->idFilters = $advert->filters->keyBy('id');
+            $adverts[$k] = $advert;
+        }
+
         return view('adverts/index', [
             'adverts' => $adverts,
             'category' => $request->category,
