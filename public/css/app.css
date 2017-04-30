@@ -7778,6 +7778,22 @@ body {
   display: none;
 }
 
+.filters {
+  margin-bottom: 15px;
+}
+
+.filters .panel {
+  margin-bottom: 10px;
+}
+
+.filters .form-group {
+  padding: 0 5px;
+}
+
+.filters .form-group p {
+  margin-bottom: 0;
+}
+
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .slide-fade-enter-active {

@@ -9,11 +9,11 @@
             <li class="active">{{ $subcategory->translation->name }}</li>
         </ol>
 
-
         <adverts
-                category_list="{{ json_encode($category) }}"
-                subcategory_list="{{ json_encode($subcategory) }}"
-                advert_list="{{ json_encode($adverts) }}"
+            get_params="{{ json_encode($_GET) }}"
+            category_list="{{ json_encode($category) }}"
+            subcategory_list="{{ json_encode($subcategory) }}"
+            advert_list="{{ json_encode($adverts) }}"
         ></adverts>
 
     </div>

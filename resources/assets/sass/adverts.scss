@@ -1,1 +1,16 @@
 .slide {display:none}
+.filters {
+  margin-bottom:15px;
+
+  .panel {
+    margin-bottom:10px;
+  }
+
+  .form-group {
+    padding:0 5px;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}

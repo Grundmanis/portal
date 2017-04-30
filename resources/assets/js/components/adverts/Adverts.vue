@@ -1,48 +1,52 @@
 <template>
     <div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Filters</h3>
+        <div class="filters">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Filters</h3>
+                </div>
+                <form :action="currentLocation">
+                    <div class="panel-body">
+                            <div class="form-inline">
+                                <div class="form-group" v-for="filter in category.filters">
+                                    <p>
+                                        <label :for="filter.name">{{ filter.name }}</label>
+                                    </p>
+                                    <select v-if="filter.type == 'select'" class="form-control" :name="filter.name" :id="filter.name">
+                                        <option :selected="get[filter.name] == value ? true : false" v-for="value in JSON.parse(filter.value)">
+                                            {{ value }}
+                                        </option>
+                                    </select>
+                                    <input v-if="filter.type == 'input'" class="form-control" :placeholder="filter.value" v-model="get[filter.name]" :name="filter.name" :id="filter.name" type="text">
+                                </div>
+                            </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <input type="submit" value="Search" class="btn btn-primary">
+                        <input type="button" value="Clear" class="btn btn-sm btn-danger">
+                    </div>
+                </form>
             </div>
-            <div class="panel-body">
-                <div class="form-inline">
-                    <div class="form-group">
-                        <p>
-                            <label for="show">Show</label>
-                        </p>
-                        <select class="form-control" name="show" id="show" v-model="showAs">
-                            <option value="table">Table</option>
-                            <option value="grid">Grid</option>
-                        </select>
-                    </div>
+            <div class="form-inline text-right">
+                <div class="form-group text-left">
+                    <p>
+                        <label for="show">Show</label>
+                    </p>
+                    <select class="form-control" id="show" v-model="showAs">
+                        <option value="table">Table</option>
+                        <option value="grid">Grid</option>
+                    </select>
+                </div>
 
-                    <div class="form-group">
-                        <p>
-                            <label for="per_page">Per page</label>
-                        </p>
-                        <select class="form-control" name="per_page" id="per_page" v-model="perPage" v-on:change="changePerPage">
-                            <option>2</option>
-                            <option>4</option>
-                            <option>6</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" v-for="filter in category.filters">
-
-                        <p>
-                            <label :for="filter.name">{{ filter.name }}</label>
-                        </p>
-
-                        <select v-if="filter.type == 'select'" class="form-control" :id="filter.name" v-on:change="changeFilters">
-                            <option v-for="value in JSON.parse(filter.value)">
-                                {{ value }}
-                            </option>
-                        </select>
-
-                        <input v-if="filter.type == 'input'" class="form-control" :id="filter.name" type="text" v-on:keyup="changeFilters">
-
-                    </div>
-
+                <div class="form-group text-left">
+                    <p>
+                        <label for="per_page">Per page</label>
+                    </p>
+                    <select class="form-control" id="per_page" v-model="perPage" v-on:change="changePerPage">
+                        <option>2</option>
+                        <option>4</option>
+                        <option>6</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -118,7 +122,8 @@
         props: [
             'advert_list',
             'category_list',
-            'subcategory_list'
+            'subcategory_list',
+            'get_params'
         ],
         data() {
             return {
@@ -128,7 +133,8 @@
                 totalPages: 1,
                 perPage: 2,
                 showAs: 'table',
-                appliedFilters: []
+                currentLocation: location.protocol + '//' + location.host + location.pathname,
+                get: JSON.parse(this.get_params)
             }
         },
         mounted() {
@@ -151,25 +157,14 @@
                 });
             },
             jumpToPage(page) {
-                this.$http.get(location.href + '?page='+page+'&per_page='+this.perPage).then(function(response) {
+                this.$http.get(this.currentLocation + '?page='+page+'&per_page='+this.perPage).then(function(response) {
                     this.adverts = response.data.adverts;
                 });
             },
             changePerPage() {
-                this.$http.get(location.href + '?page='+this.adverts.current_page+'&per_page='+this.perPage).then(function(response) {
+                this.$http.get(this.currentLocation + '?page='+1+'&per_page='+this.perPage).then(function(response) {
                     this.adverts = response.data.adverts;
                 });
-            },
-            changeFilters(e) {
-                if (e.target.value) {
-                    if (!this.appliedFilters[e.target.id]) {
-                        this.appliedFilters.length = this.appliedFilters.length + 1;
-                    }
-                    this.appliedFilters[e.target.id] = e.target.value;
-                } else {
-                    delete this.appliedFilters[e.target.id];
-                    this.appliedFilters.length = this.appliedFilters.length - 1;
-                }
             }
         }
     }

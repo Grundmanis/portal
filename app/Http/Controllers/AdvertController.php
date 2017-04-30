@@ -20,10 +20,20 @@ class AdvertController extends Controller
      */
     public function index(AdvertsListRequest $request) {
 
+
+        foreach ($request->all() as $k => $v) {
+            if (!$v) {
+                unset($request[$k]);
+            }
+        }
+
+//        dd($request->all());
+
         $adverts = Advert::where('category_id',$request->category->id)
             ->where('subcategory_id', $request->subcategory->id)
             ->paginate($request->per_page ? $request->per_page : 2);
 
+        // set ID es key for JS objects
         foreach ($adverts as $k => $advert) {
             $advert->idFilters = $advert->filters->keyBy('id');
             $adverts[$k] = $advert;
