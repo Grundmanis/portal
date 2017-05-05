@@ -21,9 +21,8 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="panel-footer text-right">
+                    <div class="panel-footer">
                         <input type="submit" value="Search" class="btn btn-primary">
-                        <input type="button" value="Clear" class="btn btn-sm btn-danger">
                     </div>
                 </form>
             </div>
@@ -139,6 +138,7 @@
         },
         mounted() {
             this.totalPages = Math.ceil(this.adverts.total / this.adverts.per_page);
+            console.log(this.adverts);
         },
         watch: {
             adverts: function () {

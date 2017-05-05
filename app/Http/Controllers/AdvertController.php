@@ -8,6 +8,7 @@ use App\Http\Requests\AdvertsListRequest;
 use App\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdvertController extends Controller
 {
@@ -20,22 +21,22 @@ class AdvertController extends Controller
      */
     public function index(AdvertsListRequest $request) {
 
-
-        foreach ($request->all() as $k => $v) {
-            if (!$v) {
-                unset($request[$k]);
-            }
-        }
-
-//        dd($request->all());
-
+        $first = true;
         $adverts = Advert::where('category_id',$request->category->id)
             ->where('subcategory_id', $request->subcategory->id)
+            ->whereHas('filters', function($query) {
+                $query->whereIn('value',['week','jurmala']);
+                $query->whereIn('key',['work_days','location']);
+            })
+            ->with('filters')
+//            ->toSql();
             ->paginate($request->per_page ? $request->per_page : 2);
+
+//        dd($adverts);
 
         // set ID es key for JS objects
         foreach ($adverts as $k => $advert) {
-            $advert->idFilters = $advert->filters->keyBy('id');
+            $advert->idFilters = $advert->filters->keyBy('filter_id');
             $adverts[$k] = $advert;
         }
 

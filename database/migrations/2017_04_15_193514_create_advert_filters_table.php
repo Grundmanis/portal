@@ -19,6 +19,7 @@ class CreateAdvertFiltersTable extends Migration
             $table->foreign('advert_id')->references('id')->on('adverts');
             $table->integer('filter_id')->unsigned();
             $table->foreign('filter_id')->references('id')->on('category_filters');
+            $table->text('key');
             $table->text('value');
             $table->timestamps();
         });

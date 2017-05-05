@@ -17,42 +17,50 @@ class AdvertFilterTableSeeder extends Seeder
                 [
                     'advert_id' => 1,
                     'filter_id' => 1,
-                    'value' => 'mon'
+                    'key' => 'work_days',
+                    'value' => 'week'
                 ],
                 [
                     'advert_id' => 1,
                     'filter_id' => 2,
-                    'value' => 'DEVP'
+                    'key' => 'company_name',
+                    'value' => 'devp'
                 ],
                 [
                     'advert_id' => 1,
                     'filter_id' => 3,
+                    'key' => 'work_time',
                     'value' => '9:00'
                 ],
                 [
                     'advert_id' => 1,
                     'filter_id' => 4,
-                    'value' => 'Riga'
+                    'key' => 'location',
+                    'value' => 'riga'
                 ],
                 [
                     'advert_id' => 2,
                     'filter_id' => 1,
+                    'key' => 'work_days',
                     'value' => 'holidays'
                 ],
                 [
                     'advert_id' => 2,
                     'filter_id' => 2,
-                    'value' => 'Picanova'
+                    'key' => 'company_name',
+                    'value' => 'picanova'
                 ],
                 [
                     'advert_id' => 2,
                     'filter_id' => 3,
+                    'key' => 'work_time',
                     'value' => '10:00'
                 ],
                 [
                     'advert_id' => 2,
                     'filter_id' => 4,
-                    'value' => 'Jurmala'
+                    'key' => 'location',
+                    'value' => 'jurmala'
                 ],
             ]);
         } catch (\Exception $ex) {
