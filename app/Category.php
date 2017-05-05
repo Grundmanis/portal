@@ -19,4 +19,9 @@ class Category extends Model
      */
     // (optionaly)
     // protected $with = ['translations'];
+
+
+    public function parents() {
+        return $this->hasMany(CategoryRelation::class);
+    }
 }
