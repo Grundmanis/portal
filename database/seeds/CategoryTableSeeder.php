@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UserTableSeeder extends Seeder
+class CategoryTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,18 +14,24 @@ class UserTableSeeder extends Seeder
 
         DB::beginTransaction();
         try {
-            DB::table('users')->insert([
+            DB::table('categories')->insert([
                 [
-                    'name' => 'test',
-                    'email' => 'test@test.com',
-                    'password' => bcrypt('test')
+                    'slug' => 'work',
+                ],
+                [
+                    'slug' => 'transport',
+                ],
+                [
+                    'slug' => 'vacancies',
+                ],
+                [
+                    'slug' => 'auto',
                 ],
             ]);
         } catch (\Exception $ex) {
             DB::rollBack();
             throw $ex;
         }
-
         DB::commit();
     }
 }
