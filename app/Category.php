@@ -10,7 +10,7 @@ class Category extends Model
     use Translatable;
 
     public $translatedAttributes = ['name'];
-    protected $fillable = ['code'];
+    protected $fillable = ['slug'];
 
     /**
      * The relations to eager load on every query.

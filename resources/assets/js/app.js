@@ -19,6 +19,6 @@ Vue.component('newadvert', require('./components/adverts/NewAdvert.vue'));
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
 
-const app = new Vue({
-    el: '#app'
-});
+// const app = new Vue({
+//     el: '#app'
+// });

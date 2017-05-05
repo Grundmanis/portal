@@ -124,6 +124,18 @@
             </div>
         </nav>
 
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         @yield('content')
 
         <footer class="footer">
