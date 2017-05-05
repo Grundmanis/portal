@@ -11,6 +11,6 @@
 |
 */
 Auth::routes();
-Route::get('/', 'HomeController@index');
+Route::get('/{locale?}', 'HomeController@index');
 Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');

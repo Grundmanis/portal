@@ -11,9 +11,9 @@ return [
     |
     */
     'locales' => [
-        'lv',
-        'ru',
-        'en',
+        'Latviešu' => 'lv',
+        'Русский' => 'ru',
+        'English' => 'en',
     ],
 
     /*

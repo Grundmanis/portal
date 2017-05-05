@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Advert;
 use App\Category;
 use App\Subcategory;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -26,6 +27,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::bind('locale', function($value) {
+            App::setLocale($value);
+        });
+
         parent::boot();
     }
 

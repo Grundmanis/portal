@@ -111,11 +111,12 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">English <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ App::getLocale() }} <span class="caret"></span></a>
 
                             <ul class="dropdown-menu">
-                                <li><a href="#">Latviešu</a></li>
-                                <li><a href="#">Русский</a></li>
+                                @foreach (config('translatable.locales') as $lng => $k)
+                                <li><a href="{{ $k }}">{{ $lng }}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                     </ul>
