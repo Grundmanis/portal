@@ -3,11 +3,6 @@
 @section('content')
 <div class="container">
 
-    <categories
-        category_list="{{$categories}}"
-    >
-    </categories>
-
 </div>
 @endsection
 
