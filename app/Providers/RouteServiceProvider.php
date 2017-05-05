@@ -26,16 +26,6 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Route::bind('advert', function($value) {
-            return Advert::find($value);
-        });
-        Route::bind('category', function($value) {
-           return Category::where('slug', $value)->first();
-        });
-        Route::bind('subcategory', function($value) {
-           return Subcategory::where('slug', $value)->first();
-        });
-
         parent::boot();
     }
 
