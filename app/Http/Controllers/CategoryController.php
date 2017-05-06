@@ -16,11 +16,14 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+
+        // TODO
         $category = $request->childsubcategory ? $request->childsubcategory : $request->subcategory ? $request->subcategory : $request->category;
 
         // show child categories
         if (count($category->child)) {
             $categories = $category->child;
+            // TODO
             $route = $request->category->slug . '/' . ($request->subcategory ? $request->subcategory->slug . '/' : '');
             return view('category.index',compact('categories','route'));
         } else {
@@ -48,6 +51,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        // TODO
         // save translations
         $data = [
             'slug' => $request->slug,
