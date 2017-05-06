@@ -18,7 +18,7 @@ Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
 
 // Create category
-Route::get('/{category}/{subcategory?}/{childsubcategory?}', 'CategoryController@index')->name('category.index');
+Route::get('/categories/{category}/{subcategory?}/{childsubcategory?}', 'CategoryController@index')->name('category.index');
 Route::get('/add-category', 'CategoryController@create')->name('category.create');
 Route::post('/add-category', 'CategoryController@store')->name('category.store');
 

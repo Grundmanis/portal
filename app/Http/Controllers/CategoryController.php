@@ -16,15 +16,14 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-
         // TODO
         $category = $request->childsubcategory ? $request->childsubcategory : $request->subcategory ? $request->subcategory : $request->category;
 
         // show child categories
-        if (count($category->child)) {
+        if ($category && count($category->child)) {
             $categories = $category->child;
-            // TODO
-            $route = $request->category->slug . '/' . ($request->subcategory ? $request->subcategory->slug . '/' : '');
+            $route = route('category.index',[$request->category->slug,$request->subcategory ? $request->subcategory->slug : '']);
+
             return view('category.index',compact('categories','route'));
         } else {
             $adverts = [];
