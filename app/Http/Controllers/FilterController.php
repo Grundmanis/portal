@@ -15,7 +15,8 @@ class FilterController extends Controller
      */
     public function index()
     {
-        //
+        $filters = Filter::all();
+        return view('filter.index',compact('filters'));
     }
 
     /**
@@ -43,6 +44,7 @@ class FilterController extends Controller
             'category_id' => $request->category_id,
             'type' => $request->type,
             'in_filters' => $request->in_filters == 'on' ? 1 : 0,
+            'all_categories' => $request->all_categories == 'on' ? 1 : 0,
             'en' => ['name' => $request->name['en'],'value' => $request->value['en']],
             'lv' => ['name' => $request->name['lv'],'value' => $request->value['lv']],
             'ru' => ['name' => $request->name['ru'],'value' => $request->value['ru']],

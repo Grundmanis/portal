@@ -12,16 +12,13 @@ class Category extends Model
     public $translatedAttributes = ['name'];
     protected $fillable = ['slug'];
 
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    // (optionaly)
-    // protected $with = ['translations'];
-
-
-    public function parents() {
-        return $this->hasMany(CategoryRelation::class);
+    public function parents()
+    {
+        return $this->belongsToMany(Category::class,'category_relations','category_id','parent_id');
     }
+    public function child()
+    {
+        return $this->belongsToMany(Category::class,'category_relations','parent_id','category_id');
+    }
+
 }

@@ -5,6 +5,14 @@
     <form enctype="multipart/form-data" action="{{ route('filter.store') }}" method="post">
         {{ csrf_field() }}
         <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="all_categories">
+                        <input id="all_categories" type="checkbox" name="all_categories"> For all categories
+                    </label>
+                    <small class="help-block">Then no need to select categories below</small>
+                </div>
+            </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="category_parent_id">Category parent</label>
@@ -28,9 +36,9 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="in_filters">
-                        <input id="in_filters" type="checkbox" name="in_filters">
-                        Category parent
+                        <input id="in_filters" type="checkbox" name="in_filters"> Showing in filters
                     </label>
+                    <small class="help-block">On advert list page show these filters or not</small>
                 </div>
             </div>
             <div class="col-sm-6">
@@ -41,6 +49,8 @@
                         <option value="check">Check box</option>
                         <option value="radio">Radio box</option>
                         <option value="input">Input</option>
+                        <option value="images">Images</option>
+                        <option value="textarea">Textarea</option>
                     </select>
                 </div>
             </div>

@@ -15,10 +15,11 @@ class CreateFiltersTable extends Migration
     {
         Schema::create('filters', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id')->unsigned();
-            $table->integer('category_parent_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
+            $table->integer('category_parent_id')->unsigned()->nullable();
             $table->string('type');
             $table->boolean('in_filters')->nullable();
+            $table->boolean('all_categories')->nullable();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('category_parent_id')->references('id')->on('categories')->onDelete('cascade');
@@ -29,7 +30,7 @@ class CreateFiltersTable extends Migration
             $table->increments('id');
             $table->integer('filter_id')->unsigned();
             $table->string('name');
-            $table->string('value');
+            $table->string('value')->nullable();
 
             $table->string('locale')->index();
             $table->unique(['filter_id','locale']);

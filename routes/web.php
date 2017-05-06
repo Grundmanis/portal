@@ -22,6 +22,7 @@ Route::get('/add-category', 'CategoryController@create')->name('category.create'
 Route::post('/add-category', 'CategoryController@store')->name('category.store');
 
 // Create category filter
+Route::get('/filters', 'FilterController@index')->name('filter.index');
 Route::get('/add-filter', 'FilterController@create')->name('filter.create');
 Route::post('/add-filter', 'FilterController@store')->name('filter.store');
 
