@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 
-class AdvertController extends Controller
+class CategoryFilterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class AdvertController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('advert.create',compact('categories'));
+        return view('filter.create',compact('categories'));
     }
 
     /**
@@ -36,7 +36,7 @@ class AdvertController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //
     }
 
     /**

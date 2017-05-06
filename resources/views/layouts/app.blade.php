@@ -129,8 +129,8 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('register') }}">Register</a></li>
+                    <li><a href="{{ route('category.create') }}">Create category</a></li>
+                    <li><a href="{{ route('filter.create') }}">Create filter</a></li>
                     </ul>
                 </div>
             </div>

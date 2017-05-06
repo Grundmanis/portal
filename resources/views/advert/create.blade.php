@@ -2,13 +2,14 @@
 
 @section('content')
 <div class="container">
-    <form action="{{ route('category.store') }}" method="post">
+    <form enctype="multipart/form-data" action="{{ route('advert.store') }}" method="post">
         {{ csrf_field() }}
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="parent_id">Parent categories</label>
-                    <select class="form-control" name="parent_id[]" multiple id="parent_id">
+                    <label for="parent_id">Category</label>
+
+                    <select class="form-control" name="category_id" id="category_id">
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{ $category->name }}</option>
                         @endforeach

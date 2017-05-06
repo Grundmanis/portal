@@ -10,21 +10,27 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/{locale?}', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
-// TODO change to current locale
-Route::group(['prefix' => 'lv'], function() {
+// Auth
+Auth::routes();
+Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
+Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
 
-    // Auth
-    Auth::routes();
-    Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
-    Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
+// Create category
+Route::get('/add-category', 'CategoryController@create')->name('category.create');
+Route::post('/add-category', 'CategoryController@store')->name('category.store');
 
-    // Create category
-    Route::get('/add-category', 'CategoryController@create');
-    Route::post('/add-category', 'CategoryController@store')->name('category.store');
+// Create category filter
+Route::get('/add-filter', 'CategoryFilterController@create')->name('filter.create');
+Route::post('/add-filter', 'CategoryFilterController@store')->name('filter.store');
 
-    // Create advert
-    Route::get('/add-advert', 'AdvertController@create')->name('advert.create');
-    Route::post('/add-advert', 'AdvertController@store')->name('advert.store');
+// Create advert
+Route::get('/add-advert', 'AdvertController@create')->name('advert.create');
+Route::post('/add-advert', 'AdvertController@store')->name('advert.store');
+
+Route::get('/image', function()
+{
+    $img = Image::make('http://pre07.deviantart.net/7dbb/th/pre/i/2009/155/6/a/patrick_star_by_ninjasaus.png')->resize(300, 200);
+    return $img->response('jpg');
 });
