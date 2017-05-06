@@ -18,7 +18,8 @@ class CreateFiltersTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('category_parent_id')->unsigned();
             $table->string('type');
-            $table->boolean('in_filters');
+            $table->boolean('in_filters')->nullable();
+            $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('category_parent_id')->references('id')->on('categories')->onDelete('cascade');
         });

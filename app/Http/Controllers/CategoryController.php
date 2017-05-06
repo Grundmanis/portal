@@ -37,7 +37,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         // save translations
         $data = [
             'slug' => $request->slug,

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Filter;
 use Illuminate\Http\Request;
 
-class CategoryFilterController extends Controller
+class FilterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +37,20 @@ class CategoryFilterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // save translations
+        $data = [
+            'category_parent_id' => $request->category_parent_id,
+            'category_id' => $request->category_id,
+            'type' => $request->type,
+            'in_filters' => $request->in_filters == 'on' ? 1 : 0,
+            'en' => ['name' => $request->name['en'],'value' => $request->value['en']],
+            'lv' => ['name' => $request->name['lv'],'value' => $request->value['lv']],
+            'ru' => ['name' => $request->name['ru'],'value' => $request->value['ru']],
+        ];
+
+        Filter::create($data);
+
+        return redirect('/');
     }
 
     /**

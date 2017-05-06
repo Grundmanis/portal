@@ -22,8 +22,8 @@ Route::get('/add-category', 'CategoryController@create')->name('category.create'
 Route::post('/add-category', 'CategoryController@store')->name('category.store');
 
 // Create category filter
-Route::get('/add-filter', 'CategoryFilterController@create')->name('filter.create');
-Route::post('/add-filter', 'CategoryFilterController@store')->name('filter.store');
+Route::get('/add-filter', 'FilterController@create')->name('filter.create');
+Route::post('/add-filter', 'FilterController@store')->name('filter.store');
 
 // Create advert
 Route::get('/add-advert', 'AdvertController@create')->name('advert.create');

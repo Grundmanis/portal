@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->string('color')->nullable();
             $table->text('icon')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('category_translations', function(Blueprint $table)

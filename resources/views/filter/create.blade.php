@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form enctype="multipart/form-data" action="{{ route('advert.store') }}" method="post">
+    <form enctype="multipart/form-data" action="{{ route('filter.store') }}" method="post">
         {{ csrf_field() }}
         <div class="row">
             <div class="col-sm-6">
@@ -25,7 +25,15 @@
                     </select>
                 </div>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="in_filters">
+                        <input id="in_filters" type="checkbox" name="in_filters">
+                        Category parent
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="type">Filter type</label>
                     <select class="form-control" name="type" id="type">
@@ -35,6 +43,8 @@
                         <option value="input">Input</option>
                     </select>
                 </div>
+            </div>
+            <div class="col-sm-12">
                 @foreach(config('translatable.locales') as $lng => $key)
                     <div class="panel panel-default">
                         <div class="panel-heading">
