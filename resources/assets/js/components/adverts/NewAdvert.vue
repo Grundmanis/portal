@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div v-if="step == 1">
             <h3>Step 1</h3>
             <div class="row">
@@ -8,7 +7,7 @@
                     <div class="form-group">
                         <select title="" class="form-control" v-model="main_category">
                             <option value="0">- please choose category -</option>
-                            <option v-if="!category.parent_id" :value="category.id" v-for="category in categories">{{ category.translation.name }}</option>
+                            <option v-if="!category.parent_id" :value="category.id" v-for="category in categories">{{ category.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -16,7 +15,7 @@
                     <div class="form-group">
                         <select class="form-control" v-model="category">
                             <option value="0">- please choose category -</option>
-                            <option v-if="category.parent_id == main_category" :value="category.id" v-for="category in categories">{{ category.translation.name }}</option>
+                            <option v-if="category.parent_id == main_category" :value="category.id" v-for="category in categories">{{ category.name }}</option>
                         </select>
                     </div>
                 </div>
@@ -24,7 +23,7 @@
                     <div class="form-group">
                         <select class="form-control" v-model="advert.subcategory_id">
                             <option value="0">- please choose sub category -</option>
-                            <option :value="category.id" v-for="category in subcategories">{{ category.translation.name }}</option>
+                            <option :value="category.id" v-for="category in subcategories">{{ category.name }}</option>
                         </select>
                     </div>
                 </div>

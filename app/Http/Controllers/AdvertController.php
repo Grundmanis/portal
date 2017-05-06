@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class AdvertController extends Controller
 {
@@ -24,7 +25,7 @@ class AdvertController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::whereTranslation('locale', App::getLocale())->with('parents')->with('child')->get();
         return view('advert.create',compact('categories'));
     }
 

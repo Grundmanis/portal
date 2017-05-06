@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="container">
+    <newadvert category_list="{{$categories}}"></newadvert>
+</div>
+@endsection
+
+@section('scripts')
+@endsection
+<?php
+        /*
+
     <form enctype="multipart/form-data" action="{{ route('advert.store') }}" method="post">
         {{ csrf_field() }}
         <div class="row">
@@ -31,8 +40,5 @@
             </div>
         </div>
     </form>
-</div>
-@endsection
-
-@section('scripts')
-@endsection
+*/
+?>
