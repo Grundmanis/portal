@@ -15,12 +15,16 @@ Route::get('/{locale?}', 'HomeController@index');
 // TODO change to current locale
 Route::group(['prefix' => 'lv'], function() {
 
-// Auth
+    // Auth
     Auth::routes();
     Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
     Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
 
-// Create category
+    // Create category
     Route::get('/add-category', 'CategoryController@create');
     Route::post('/add-category', 'CategoryController@store')->name('category.store');
+
+    // Create advert
+    Route::get('/add-advert', 'AdvertController@create')->name('advert.create');
+    Route::post('/add-advert', 'AdvertController@store')->name('advert.store');
 });

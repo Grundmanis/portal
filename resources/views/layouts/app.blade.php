@@ -63,7 +63,7 @@
 
                         <li>
                             <div class="navbar-form">
-                                <a href="#" class="btn btn-success">Add advert</a>
+                                <a href="{{ route('advert.create') }}" class="btn btn-success">Add advert</a>
                             </div>
                         </li>
 
