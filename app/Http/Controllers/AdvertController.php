@@ -25,7 +25,7 @@ class AdvertController extends Controller
      */
     public function create()
     {
-        $categories = Category::whereTranslation('locale', App::getLocale())->with('parents')->with('child')->get();
+        $categories = Category::whereTranslation('locale', App::getLocale())->with('parents')->get();
         return view('advert.create',compact('categories'));
     }
 

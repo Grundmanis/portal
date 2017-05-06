@@ -58,12 +58,19 @@ class FilterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $category = $request->subcategory; // 3 vacancies
+        $parent_category = $request->category; // 1 work
+        $filters = Filter::where('category_id',$category->id)->where('category_parent_id',$parent_category->id)->orWhere('all_categories',1)->get();
+
+        return response()->json([
+            'filters' => $filters->chunk(round(count($filters) / 2))
+        ]);
+
     }
 
     /**

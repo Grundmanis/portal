@@ -2,103 +2,105 @@
     <div>
         <div v-if="step == 1">
             <h3>Step 1</h3>
+
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3" v-for="(selected,index) in selectedCategories">
                     <div class="form-group">
-                        <select title="" class="form-control" v-model="main_category">
+                        <select title="" class="form-control" v-on:change="categoryChanged(index)" v-model="selectedCategories[index]">
                             <option value="0">- please choose category -</option>
-                            <option v-if="!category.parent_id" :value="category.id" v-for="category in categories">{{ category.name }}</option>
+                            <option v-if="!index && !category.parents.length || index && !category.parents" :value="category" v-for="category in categories[index]">{{ category.name }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-3" v-if="main_category">
+
+                <div class="col-sm-3" v-if="categoriesSelected">
                     <div class="form-group">
-                        <select class="form-control" v-model="category">
-                            <option value="0">- please choose category -</option>
-                            <option v-if="category.parent_id == main_category" :value="category.id" v-for="category in categories">{{ category.name }}</option>
-                        </select>
+                        <button v-on:click="getCategoryFilters()" class="btn btn-success">Continue</button>
                     </div>
                 </div>
-                <div class="col-sm-3" v-if="category">
-                    <div class="form-group">
-                        <select class="form-control" v-model="advert.subcategory_id">
-                            <option value="0">- please choose sub category -</option>
-                            <option :value="category.id" v-for="category in subcategories">{{ category.name }}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-3" v-if="advert.subcategory_id">
-                    <div class="form-group">
-                        <p>
-                            <button v-on:click="step = 2" class="btn btn-success">Continue</button>
-                        </p>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div v-if="step == 2">
             <h3>Step 2</h3>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="text">Advert text</label>
-                        <textarea style="resize: none" class="form-control" name="" id="text" cols="30" rows="10" v-model="advert.text"></textarea>
+            <form enctype="multipart/form-data" method="post">
+                <input type="hidden" v-model="token" name="_token">
+                <input type="hidden" v-model="category_id" name="category_id">
+                <input type="hidden" v-model="category_parent_id" name="category_parent_id">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <Filters v-bind:filter="filter" v-for="filter in filters[0]"></Filters>
+                    </div>
+                    <div class="col-sm-6">
+                        <Filters v-bind:filter="filter" v-for="filter in filters[1]"></Filters>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="number">Phone number</label>
-                        <input class="form-control" type="tel" id="number" name="number">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail address</label>
-                        <input class="form-control" type="email" id="email" name="email">
-                    </div>
-                    <div class="form-group text-right">
-                        <button v-on:click="publish()" class="btn btn-success">Publish</button>
-                    </div>
-                </div>
-            </div>
+                <button type="submit" class="btn btn-success">Add</button>
+            </form>
         </div>
 
     </div>
 </template>
 
 <script>
+
+    import Filters from './Filters.vue';
+
     export default {
         props: [
             'category_list'
         ],
         data() {
             return {
-                categories: JSON.parse(this.category_list),
-                subcategories: [],
+                token: window.Laravel.csrfToken,
+                categories: [JSON.parse(this.category_list)],
+                selectedCategories: [0],
+                categoriesSelected: false,
                 step: 1,
-                main_category: 0,
-                category: 0,
-                advert: {
-                    category_id: 0,
-                    subcategory_id: 0,
-                    text: ''
-                }
+                category_id: 0,
+                category_parent_id: 0,
+                filters: {}
             }
         },
-        mounted() {
-            console.log(this.categories);
-        },
-        watch: {
-            main_category: function () {
-              this.category = 0;
-            },
-            category: function () {
-                this.subcategories = this.categories[this.category].subcategories;
-            }
-        },
+        components: { Filters },
         methods: {
-            publish() {
-                this.advert.category_id = this.category;
-                this.$http.post('/adverts/add/', this.advert).then(function(response) {
-                    location.href = response.data.redirect;
+            categoryChanged(index) {
+                let nextIndex = index+1,
+                    child = this.selectedCategories[index].child;
+
+                // If it's not the last category
+                if (child.length) {
+                    // not selected yet
+                    this.selectedCategories[nextIndex] = 0;
+
+                    // correct categories for select
+                    this.categories[nextIndex] = this.selectedCategories[index].child;
+
+                    // delete next arrays if exist
+                    this.categories.splice(nextIndex+1);
+
+                } else {
+                    // show continue button
+                    this.categoriesSelected = true;
+                }
+            },
+            getCategoryFilters() {
+
+                let index = this.selectedCategories.length - 1,
+                    category = this.selectedCategories[index].slug,
+                    parentCategory = this.selectedCategories[index-1].slug;
+
+                this.category_id = this.selectedCategories[index].id;
+                this.category_parent_id = this.selectedCategories[index-1].id;
+
+                this.$http.get('/filters/' + category + '/' + parentCategory + '/').then(function(response) {
+                    if (response.ok) {
+                        this.filters = response.data.filters;
+                        this.step++;
+                        console.log(this.filters);
+                    } else {
+                        console.error('something went wrong', response);
+                    }
                 });
             }
         }

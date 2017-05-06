@@ -131,7 +131,6 @@
                     <ul class="nav navbar-nav">
                     <li><a href="{{ route('category.create') }}">Create category</a></li>
                     <li><a href="{{ route('filter.create') }}">Create filter</a></li>
-                    <li><a href="{{ route('filter.index') }}">Filters</a></li>
                     </ul>
                 </div>
             </div>
