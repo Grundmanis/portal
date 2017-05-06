@@ -4,9 +4,20 @@
 <div class="container">
     <ul>
         @foreach($categories as $category)
+            @if (count($category->child) && !count($category->parent))
             <li>
-                <a href="#">{{ $category->name }}</a>
+                <a href="{{ $category->slug }}">{{ $category->name }}</a>
+                @if (count($category->child))
+                    <ul>
+                        @foreach($category->child as $child)
+                            <li>
+                                <a href="{{ $category->slug . '/' . $child->slug }}">{{ $child->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </li>
+            @endif
         @endforeach
     </ul>
 </div>

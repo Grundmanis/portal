@@ -16,9 +16,14 @@ class Category extends Model
     {
         return $this->belongsToMany(Category::class,'category_relations','category_id','parent_id');
     }
+
     public function child()
     {
         return $this->belongsToMany(Category::class,'category_relations','parent_id','category_id');
+    }
+
+    public function filters() {
+        return $this->hasMany(Filter::class);
     }
 
 }
