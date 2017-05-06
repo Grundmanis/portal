@@ -43,6 +43,7 @@ class FilterController extends Controller
             'category_parent_id' => $request->category_parent_id,
             'category_id' => $request->category_id,
             'type' => $request->type,
+            'key' => $request->key,
             'in_filters' => $request->in_filters == 'on' ? 1 : 0,
             'all_categories' => $request->all_categories == 'on' ? 1 : 0,
             'en' => ['name' => $request->name['en'],'value' => $request->value['en']],
@@ -68,7 +69,7 @@ class FilterController extends Controller
         $filters = Filter::where('category_id',$category->id)->where('category_parent_id',$parent_category->id)->orWhere('all_categories',1)->get();
 
         return response()->json([
-            'filters' => $filters->chunk(round(count($filters) / 2))
+            'filters' => $filters->chunk(ceil(count($filters) / 2))
         ]);
 
     }

@@ -5,12 +5,18 @@
     <form enctype="multipart/form-data" action="{{ route('filter.store') }}" method="post">
         {{ csrf_field() }}
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="all_categories">
                         <input id="all_categories" type="checkbox" name="all_categories"> For all categories
                     </label>
                     <small class="help-block">Then no need to select categories below</small>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="key">Key</label>
+                    <input class="form-control" id="key" type="text" name="key">
                 </div>
             </div>
             <div class="col-sm-6">
