@@ -11,11 +11,22 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $category = $request->childsubcategory ? $request->childsubcategory : $request->subcategory ? $request->subcategory : $request->category;
+
+        // show child categories
+        if (count($category->child)) {
+            $categories = $category->child;
+            $route = $request->category->slug . '/' . ($request->subcategory ? $request->subcategory->slug . '/' : '');
+            return view('category.index',compact('categories','route'));
+        } else {
+            $adverts = [];
+            return view('category.show',compact('adverts'));
+        }
     }
 
     /**
