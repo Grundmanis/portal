@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Advert;
+use App\AdvertFilter;
 use App\Category;
+use App\Filter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class AdvertController extends Controller
 {
@@ -37,7 +41,33 @@ class AdvertController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $data = $request->all();
+
+        $filter = new AdvertFilter();
+        $filter->value = 'test';
+
+        dd($filter);
+
+        $advert = new Advert();
+        $advert->fill($data);
+        $advert->user_id = Auth::user()->id;
+        $advert->save();
+
+        unset($data['_token']);
+        unset($data['category_id']);
+        unset($data['category_parent_id']);
+
+        // Save advert filters
+        $filters = [];
+        foreach ($data as $id => $value) {
+            $filters[] = [
+                'advert_id' => $advert->id,
+                'filter_id' => $id,
+                'value' => 'test'
+            ];
+        }
+
+        AdvertFilter::insert($filters);
     }
 
     /**
