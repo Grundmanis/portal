@@ -43,11 +43,6 @@ class AdvertController extends Controller
     {
         $data = $request->all();
 
-        $filter = new AdvertFilter();
-        $filter->value = 'test';
-
-        dd($filter);
-
         $advert = new Advert();
         $advert->fill($data);
         $advert->user_id = Auth::user()->id;
@@ -60,14 +55,15 @@ class AdvertController extends Controller
         // Save advert filters
         $filters = [];
         foreach ($data as $id => $value) {
-            $filters[] = [
-                'advert_id' => $advert->id,
+            $filters[] = new AdvertFilter([ 'advert_id' => $advert->id,
                 'filter_id' => $id,
-                'value' => 'test'
-            ];
+                'value' => $value]
+            );
         }
 
-        AdvertFilter::insert($filters);
+        $advert->filters()->saveMany($filters);
+
+        return redirect('/');
     }
 
     /**
