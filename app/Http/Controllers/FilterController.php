@@ -43,7 +43,6 @@ class FilterController extends Controller
             'category_parent_id' => $request->category_parent_id,
             'category_id' => $request->category_id,
             'type' => $request->type,
-            'key' => $request->key,
             'in_filters' => $request->in_filters == 'on' ? 1 : 0,
             'all_categories' => $request->all_categories == 'on' ? 1 : 0,
             'en' => ['name' => $request->name['en'],'value' => $request->value['en']],

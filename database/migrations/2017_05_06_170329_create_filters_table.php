@@ -17,7 +17,6 @@ class CreateFiltersTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned()->nullable();
             $table->integer('category_parent_id')->unsigned()->nullable();
-            $table->string('key');
             $table->string('type');
             $table->boolean('in_filters')->nullable();
             $table->boolean('all_categories')->nullable();

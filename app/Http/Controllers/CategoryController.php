@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Advert;
 use App\Category;
 use App\CategoryRelation;
 use Illuminate\Http\Request;
@@ -21,12 +22,14 @@ class CategoryController extends Controller
 
         // show child categories
         if ($category && count($category->child)) {
+
             $categories = $category->child;
             $route = route('category.index',[$request->category->slug,$request->subcategory ? $request->subcategory->slug : '']);
 
             return view('category.index',compact('categories','route'));
         } else {
-            $adverts = [];
+            $categoryParent = $request->category ? $request->category : $request->subcategory;
+            $adverts = Advert::where('category_id',$category->id)->where('category_parent_id',$categoryParent->id)->with('filters')->get();
             return view('category.show',compact('adverts'));
         }
     }

@@ -18,5 +18,9 @@ class AdvertFilter extends Model
      */
      protected $with = ['translations'];
 
+    public function filter()
+    {
+        return $this->belongsTo(Filter::class);
+    }
 
 }

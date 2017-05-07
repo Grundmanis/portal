@@ -15,12 +15,6 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="key">Key</label>
-                    <input class="form-control" id="key" type="text" name="key">
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
                     <label for="category_parent_id">Category parent</label>
                     <select class="form-control" name="category_parent_id" id="category_parent_id">
                         @foreach($categories as $category)

@@ -10,7 +10,7 @@ class Filter extends Model
     use Translatable;
 
     public $translatedAttributes = ['name','value'];
-    protected $fillable = ['category_id','category_parent_id','type','in_filters','all_categories','key'];
+    protected $fillable = ['category_id','category_parent_id','type','in_filters','all_categories'];
 
     public function category() {
         return $this->belongsTo(Category::class);
