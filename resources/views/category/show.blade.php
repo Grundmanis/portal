@@ -6,15 +6,18 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>text</th>
+                @foreach($filters as $filter)
+                    <th>{{ $filter->name }}</th>
+                @endforeach
             </tr>
         </thead>
         <tbody>
-
         @foreach($adverts as $advert)
             <tr>
                 <td>{{ $advert->id }}</td>
-                <td>text</td>
+                @foreach($filters as $filter)
+                    <td>{{ $advert->filters->where('filter_id',$filter->id)->first()->value }}</td>
+                @endforeach
             </tr>
         @endforeach
         </tbody>

@@ -44,7 +44,8 @@ class FilterController extends Controller
             'category_id' => $request->category_id,
             'type' => $request->type,
             'in_filters' => $request->in_filters == 'on' ? 1 : 0,
-            'all_categories' => $request->all_categories == 'on' ? 1 : 0,
+            'in_adverts_list' => $request->in_adverts_list == 'on' ? 1 : 0,
+            'in_all_categories' => $request->in_all_categories == 'on' ? 1 : 0,
             'en' => ['name' => $request->name['en'],'value' => $request->value['en']],
             'lv' => ['name' => $request->name['lv'],'value' => $request->value['lv']],
             'ru' => ['name' => $request->name['ru'],'value' => $request->value['ru']],
@@ -65,7 +66,7 @@ class FilterController extends Controller
     {
         $category = $request->subcategory; // 3 vacancies
         $parent_category = $request->category; // 1 work
-        $filters = Filter::where('category_id',$category->id)->where('category_parent_id',$parent_category->id)->orWhere('all_categories',1)->get();
+        $filters = Filter::where('category_id',$category->id)->where('category_parent_id',$parent_category->id)->orWhere('in_all_categories',1)->get();
 
         return response()->json([
             'filters' => $filters->chunk(ceil(count($filters) / 2))

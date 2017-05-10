@@ -7,12 +7,21 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="all_categories">
-                        <input id="all_categories" type="checkbox" name="all_categories"> For all categories
+                    <label for="in_adverts_list">
+                        <input id="in_adverts_list" type="checkbox" name="in_adverts_list"> Show in adverts list
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="in_all_categories">
+                        <input id="in_all_categories" type="checkbox" name="in_all_categories"> For all categories
                     </label>
                     <small class="help-block">Then no need to select categories below</small>
                 </div>
             </div>
+        </div>
+        <div class="row">exts
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="category_parent_id">Category parent</label>

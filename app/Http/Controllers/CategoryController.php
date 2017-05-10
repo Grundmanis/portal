@@ -30,7 +30,8 @@ class CategoryController extends Controller
         } else {
             $categoryParent = $request->category ? $request->category : $request->subcategory;
             $adverts = Advert::where('category_id',$category->id)->where('category_parent_id',$categoryParent->id)->with('filters')->get();
-            return view('category.show',compact('adverts'));
+            $filters = $category->filters->where('in_adverts_list',1);
+            return view('category.show',compact('adverts', 'category' , 'filters'));
         }
     }
 
