@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class AdvertFilter extends Model
 {
     use Translatable;
+
     public $translatedAttributes = ['value'];
+
     protected $fillable = ['advert_id','filter_id'];
+
+    // TODO move to .env
+    const IMAGE_ID = 1;
 
     /**
      * The relations to eager load on every query.

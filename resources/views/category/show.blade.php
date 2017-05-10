@@ -15,8 +15,18 @@
         @foreach($adverts as $advert)
             <tr>
                 <td>{{ $advert->id }}</td>
-                @foreach($filters as $filter)
-                    <td>{{ $advert->filters->where('filter_id',$filter->id)->first()->value }}</td>
+                @foreach($filters as $id => $filter)
+                    @if ($advert->filters->where('filter_id',$filter->id)->first())
+                        <td>
+                            @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
+                                <img src="{{ $advert->filters->where('filter_id',$filter->id)->first()->value }}" alt="">
+                            @else
+                                {{ $advert->filters->where('filter_id',$filter->id)->first()->value }}
+                            @endif
+                        </td>
+                    @else
+                        <td></td>
+                    @endif
                 @endforeach
             </tr>
         @endforeach

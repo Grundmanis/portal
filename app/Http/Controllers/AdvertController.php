@@ -9,6 +9,9 @@ use App\Filter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 
 class AdvertController extends Controller
 {
@@ -48,6 +51,10 @@ class AdvertController extends Controller
         $advert->user_id = Auth::user()->id;
         $advert->save();
 
+        $unix = strtotime($advert->created_at);
+        $date = date('Y-m-d',$unix);
+        $folder = strtotime($date);
+
         unset($data['_token']);
         unset($data['category_id']);
         unset($data['category_parent_id']);
@@ -55,10 +62,29 @@ class AdvertController extends Controller
         // Save advert filters
         $filters = [];
         foreach ($data as $id => $value) {
-            $filters[] = new AdvertFilter([ 'advert_id' => $advert->id,
+
+            if (!$value) continue;
+
+            if ($id == AdvertFilter::IMAGE_ID) {
+                $fileName = $value->getClientOriginalName();
+                $value->move('uploads', $fileName);
+                $image = Image::make('uploads/'.$fileName);
+                $image->resize(100,80);
+
+                $path = storage_path() . '/adverts/' . $folder . '/' . $advert->id . '/';
+                if(!File::exists($path)) {
+                    File::makeDirectory($path, $mode = 0777, true, true);
+                }
+
+                $value = $path . $fileName;
+                $image->save($value);
+            }
+
+            $filters[] = new AdvertFilter([
+                'advert_id' => $advert->id,
                 'filter_id' => $id,
-                'value' => $value]
-            );
+                'value' => $value
+            ]);
         }
 
         $advert->filters()->saveMany($filters);
