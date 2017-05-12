@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\AdvertFilter;
 use App\Category;
-use App\Filter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class AdvertController extends Controller
@@ -71,13 +70,16 @@ class AdvertController extends Controller
                 $image = Image::make('uploads/'.$fileName);
                 $image->resize(100,80);
 
-                $path = storage_path() . '/adverts/' . $folder . '/' . $advert->id . '/';
+                $path = 'uploads/adverts/' . $folder . '/' . $advert->id . '/';
                 if(!File::exists($path)) {
                     File::makeDirectory($path, $mode = 0777, true, true);
                 }
 
                 $value = $path . $fileName;
                 $image->save($value);
+
+                Storage::delete('/uploads/' . $fileName);
+
             }
 
             $filters[] = new AdvertFilter([

@@ -10,17 +10,21 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'HomeController@index');
+Route::get('/', 'CategoryController@categories');
+
+// Create category
+Route::group(['prefix' => '/categories'], function(){
+    Route::get('/', 'CategoryController@categories');
+    Route::get('/create', 'CategoryController@create')->name('category.create');
+    Route::post('/create', 'CategoryController@store')->name('category.store');
+//    Route::get('/{category}/{subcategory?}/{childsubcategory?}', 'CategoryController@index')->name('category.index');
+    Route::get('/{categories}', 'CategoryController@index')->where('categories', '(.*)')->name('category.index');
+});
 
 // Auth
 Auth::routes();
 Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
-
-// Create category
-Route::get('/categories/{category}/{subcategory?}/{childsubcategory?}', 'CategoryController@index')->name('category.index');
-Route::get('/add-category', 'CategoryController@create')->name('category.create');
-Route::post('/add-category', 'CategoryController@store')->name('category.store');
 
 // Create category filter
 Route::get('/filters/{category}/{subcategory}', 'FilterController@show')->name('filter.show');

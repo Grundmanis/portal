@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\Category;
 use App\CategoryRelation;
+use App\Service\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -17,22 +18,19 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        // TODO
-        $category = $request->childsubcategory ? $request->childsubcategory : $request->subcategory ? $request->subcategory : $request->category;
+        $service = new CategoryService($request);
 
-        // show child categories
-        if ($category && count($category->child)) {
-
-            $categories = $category->child;
-            $route = route('category.index',[$request->category->slug,$request->subcategory ? $request->subcategory->slug : '']);
-
-            return view('category.index',compact('categories','route'));
-        } else {
-            $categoryParent = $request->category ? $request->category : $request->subcategory;
-            $adverts = Advert::where('category_id',$category->id)->where('category_parent_id',$categoryParent->id)->with('filters')->get();
-            $filters = $category->filters->where('in_adverts_list',1);
-            return view('category.show',compact('adverts', 'category' , 'filters'));
+        if ($service->categoryChild->isEmpty()) {
+            $service->getAdverts()
+                ->getCategoryFilters();
         }
+        
+        return view($service->getViewName(),$service->getViewData());
+    }
+
+    public function categories() {
+        $categories = Category::all();
+        return view('home',compact('categories'));
     }
 
     /**

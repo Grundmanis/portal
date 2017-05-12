@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
 
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -27,6 +28,45 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        Route::bind('categories', function($value) {
+
+            // Return data
+            $data = [
+                'routeParams' => $value
+            ];
+
+            // Slugs
+            $slugs = explode('/', $value);
+            $totalSlugs = count($slugs);
+            $onlyOneCategory = $totalSlugs < 2;
+
+            // Get categories
+            $data['categories'] = $categories = Category::whereIn('slug',$slugs)->orderBy('id')->get();
+            $data['category'] = $category = $categories->last();
+            // Get parent
+            $parentKey = !$onlyOneCategory ? count($categories) - 2 : 0;
+            $categoryParents = $category->parents->keyBy('id');
+
+            // Check errors
+            $allFound = $totalSlugs == count($categories);
+            $parentExist = isset(
+                $categories[$parentKey],
+                $categoryParents[$categories[$parentKey]->id]
+            );
+
+            // Exception
+            if (!$allFound || !$onlyOneCategory && !$parentExist) dd('exception');
+
+            // Add parentCategory
+            if (!$onlyOneCategory) {
+                $data['categoryParent'] = $categories[$parentKey];
+            }
+
+            return $data;
+
+        });
+
         Route::bind('locale', function($value) {
             App::setLocale($value);
         });
@@ -85,4 +125,5 @@ class RouteServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
     }
+
 }

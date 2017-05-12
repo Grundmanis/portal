@@ -16,17 +16,15 @@
             <tr>
                 <td>{{ $advert->id }}</td>
                 @foreach($filters as $id => $filter)
-                    @if ($advert->filters->where('filter_id',$filter->id)->first())
-                        <td>
+                    <td>
+                        @if (isset($advert->filters->keyBy('filter_id')[$filter->id]) && $advertFilter = $advert->filters->keyBy('filter_id')[$filter->id])
                             @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
-                                <img src="{{ $advert->filters->where('filter_id',$filter->id)->first()->value }}" alt="">
+                                <img src="/{{ $advertFilter->value }}" alt="">
                             @else
-                                {{ $advert->filters->where('filter_id',$filter->id)->first()->value }}
+                                {{ $advertFilter->value }}
                             @endif
-                        </td>
-                    @else
-                        <td></td>
-                    @endif
+                        @endif
+                    </td>
                 @endforeach
             </tr>
         @endforeach
