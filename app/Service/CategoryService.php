@@ -72,7 +72,11 @@ class CategoryService
      * @return $this
      */
     public function getAdverts() {
-        $this->adverts = Advert::where('category_id',$this->category->id)->where('category_parent_id',$this->categoryParent->id)->with('filters')->get();
+        $this->adverts = Advert::where('category_id',$this->category->id);
+        if ($this->categoryParent) {
+            $this->adverts = $this->adverts->where('category_parent_id',$this->categoryParent->id);
+        }
+        $this->adverts = $this->adverts->with('filters')->get();
         return $this;
     }
 

@@ -4,10 +4,10 @@
 <div class="container">
     <ul>
         @foreach($categories as $category)
-            @if (count($category->child) && !count($category->parent))
+            @if ($category->parents->isEmpty())
                 <li>
                     <a href="{{ route('category.index',['category' => $category->slug]) }}">{{ $category->name }}</a>
-                    @if (count($category->child))
+                    @if (!$category->child->isEmpty())
                         <ul>
                             @foreach($category->child as $child)
                                 <li>
