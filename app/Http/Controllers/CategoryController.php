@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Advert;
 use App\Category;
 use App\CategoryRelation;
 use App\Service\CategoryService;
@@ -23,9 +22,17 @@ class CategoryController extends Controller
         if ($service->categoryChild->isEmpty()) {
             $service->getAdverts()
                 ->getCategoryFilters();
+
+            return view('advert.index',[
+                'adverts' => $service->adverts,
+                'category' => $service->category,
+                'filters' => $service->filters
+            ]);
         }
-        
-        return view($service->getViewName(),$service->getViewData());
+
+        return view('category.index',[
+            'categories' => $service->categoryChild
+        ]);
     }
 
     public function categories() {

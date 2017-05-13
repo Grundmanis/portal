@@ -17,7 +17,6 @@ Route::group(['prefix' => '/categories'], function(){
     Route::get('/', 'CategoryController@categories');
     Route::get('/create', 'CategoryController@create')->name('category.create');
     Route::post('/create', 'CategoryController@store')->name('category.store');
-//    Route::get('/{category}/{subcategory?}/{childsubcategory?}', 'CategoryController@index')->name('category.index');
     Route::get('/{categories}', 'CategoryController@index')->where('categories', '(.*)')->name('category.index');
 });
 

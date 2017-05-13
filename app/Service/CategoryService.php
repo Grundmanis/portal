@@ -28,11 +28,6 @@ class CategoryService
     /**
      * @var string
      */
-    public $thisRoute;
-
-    /**
-     * @var string
-     */
     public $categoryViewName = 'category.index';
 
     /**
@@ -65,7 +60,6 @@ class CategoryService
         $this->category = $request->categories['category'];
         $this->categoryChild = $this->category->child;
         $this->categoryParent = isset($request->categories['categoryParent']) ? $request->categories['categoryParent'] : null;
-        $this->thisRoute = route('category.index',$request->categories['routeParams']);
     }
 
     /**
@@ -88,26 +82,4 @@ class CategoryService
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getViewName() {
-        return $this->categoryChild->isEmpty() ? $this->advertsViewName : $this->categoryViewName;
-    }
-
-    /**
-     * @return array
-     */
-    public function getViewData() {
-        $data = [];
-        if ($this->categoryChild->isEmpty()) {
-            $data['adverts'] = $this->adverts;
-            $data['category'] = $this->category;
-            $data['filters'] = $this->filters;
-        } else {
-            $data['categories'] = $this->categoryChild;
-            $data['route'] = $this->thisRoute;
-        }
-        return $data;
-    }
 }
