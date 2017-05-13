@@ -9,14 +9,20 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    public function index()
+    {
+        $categories = Category::with('parents', 'translations', 'child.translations')->get();
+        return view('home',compact('categories'));
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function categories(Request $request) {
         $service = new CategoryService($request);
 
         if ($service->categoryChild->isEmpty()) {
@@ -30,14 +36,10 @@ class CategoryController extends Controller
             ]);
         }
 
+
         return view('category.index',[
             'categories' => $service->categoryChild
         ]);
-    }
-
-    public function categories() {
-        $categories = Category::with('parents', 'translations', 'child.translations')->get();
-        return view('home',compact('categories'));
     }
 
     /**

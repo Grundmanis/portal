@@ -10,14 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'CategoryController@categories');
+Route::get('/', 'CategoryController@index');
 
 // Create category
 Route::group(['prefix' => '/categories'], function(){
-    Route::get('/', 'CategoryController@categories');
+    Route::get('/', 'CategoryController@index');
     Route::get('/create', 'CategoryController@create')->name('category.create');
     Route::post('/create', 'CategoryController@store')->name('category.store');
-    Route::get('/{categories}', 'CategoryController@index')->where('categories', '(.*)')->name('category.index');
+    Route::get('/{categories}', 'CategoryController@categories')->where('categories', '(.*)')->name('category.categories');
 });
 
 // Auth
