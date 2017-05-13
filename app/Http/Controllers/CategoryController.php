@@ -29,7 +29,7 @@ class CategoryController extends Controller
     }
 
     public function categories() {
-        $categories = Category::all();
+        $categories = Category::with('parents', 'translations', 'child.translations')->get();
         return view('home',compact('categories'));
     }
 
