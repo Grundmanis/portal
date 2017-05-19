@@ -36,7 +36,6 @@ class CategoryController extends Controller
             ]);
         }
 
-
         return view('category.index',[
             'categories' => $service->categoryChild
         ]);
@@ -61,7 +60,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         // TODO
         // save translations
         $data = [
