@@ -47,6 +47,8 @@
         @endforeach
         </tbody>
     </table>
+
+    {{ $adverts->links() }}
     @else
         <p>No adverts in this category</p>
     @endif
