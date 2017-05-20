@@ -64,8 +64,9 @@ class FilterController extends Controller
      */
     public function show(Request $request)
     {
-        $category = $request->subcategory; // 3 vacancies
-        $parent_category = $request->category; // 1 work
+        $category = $request->subcategory_slug; // 3 vacancies
+        $parent_category = $request->category_slug; // 1 work
+
         $filters = Filter::where('category_id',$category->id)->where('category_parent_id',$parent_category->id)->orWhere('in_all_categories',1)->get();
 
         return response()->json([

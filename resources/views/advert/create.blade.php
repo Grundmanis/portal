@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <newadvert category_list="{{$categories}}"></newadvert>
-</div>
+    <div class="container">
+        <newadvert category_list="{{$categories}}"></newadvert>
+    </div>
 @endsection
 
 @section('scripts')

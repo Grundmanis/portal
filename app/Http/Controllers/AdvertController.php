@@ -131,7 +131,7 @@ class AdvertController extends Controller
      * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Advert $advert)
+    public function destroy($advert)
     {
         $advert->delete();
         return back();

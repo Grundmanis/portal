@@ -93,7 +93,7 @@
                 this.category_id = this.selectedCategories[index].id;
                 this.category_parent_id = this.selectedCategories[index-1].id;
 
-                this.$http.get('/filters/' + parentCategory + '/' + category + '/').then(function(response) {
+                this.$http.get('/filter/' + parentCategory + '/' + category + '/').then(function(response) {
                     if (response.ok) {
                         this.filters = response.data.filters;
                         this.step++;

@@ -12,25 +12,27 @@
 */
 Route::get('/', 'CategoryController@index');
 
-// Categories
-Route::group(['prefix' => 'category'], function(){
-    Route::group(['middleware' => 'admin'], function(){
-        Route::get('/create', 'CategoryController@create')->name('category.create');
-        Route::post('/create', 'CategoryController@store')->name('category.store');
-    });
-    Route::get('/', 'CategoryController@index');
-    Route::get('/{categories}', 'CategoryController@categories')->where('categories', '(.*)')->name('category.categories');
-});
-
 // Auth
 Auth::routes();
 Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
 
-// Category filters
-Route::get('/filters/{category}/{subcategory}', 'FilterController@show')->name('filter.show');
-Route::get('/add-filter', 'FilterController@create')->name('filter.create');
-Route::post('/add-filter', 'FilterController@store')->name('filter.store');
+// Categories
+Route::group(['prefix' => 'category'], function(){
+    Route::group(['middleware' => 'admin'], function(){
+        Route::get('/create', 'CategoryController@create')->name('category.create');
+        Route::post('/create', 'CategoryController@store')->name('category.store');
+        Route::get('{category}/delete', 'CategoryController@destroy')->name('category.destroy');
+    });
+    Route::get('/{categories}', 'CategoryController@categories')->where('categories', '(.*)')->name('category.categories');
+});
+
+// Filters
+Route::group(['prefix' => 'filter', 'middleware' => 'admin'], function(){
+    Route::get('{category_slug}/{subcategory_slug}', 'FilterController@show')->name('filter.show');
+    Route::get('create', 'FilterController@create')->name('filter.create');
+    Route::post('create', 'FilterController@store')->name('filter.store');
+});
 
 // Adverts
 Route::group(['prefix' => 'advert', 'middleware' => 'auth'], function(){

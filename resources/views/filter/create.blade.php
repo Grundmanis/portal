@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">exts
+        <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="category_parent_id">Category parent</label>

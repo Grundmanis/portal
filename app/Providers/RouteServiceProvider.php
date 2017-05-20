@@ -72,14 +72,17 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('locale', function($value) {
             App::setLocale($value);
         });
-        Route::bind('category', function($value) {
-            return Category::where('slug',$value)->first();
+        Route::bind('category', function($id) {
+            return Category::findOrFail($id);
         });
-        Route::bind('subcategory', function($value) {
-            return Category::where('slug',$value)->first();
+        Route::bind('advert', function($id) {
+            return Advert::findOrFail($id);
         });
-        Route::bind('childsubcategory', function($value) {
-            return Category::where('slug',$value)->first();
+        Route::bind('category_slug', function($slug) {
+            return Category::where('slug',$slug)->first();
+        });
+        Route::bind('subcategory_slug', function($slug) {
+            return Category::where('slug',$slug)->first();
         });
 
         parent::boot();
