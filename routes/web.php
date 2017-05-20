@@ -31,11 +31,6 @@ Route::get('/add-filter', 'FilterController@create')->name('filter.create');
 Route::post('/add-filter', 'FilterController@store')->name('filter.store');
 
 // Create advert
-Route::get('/add-advert', 'AdvertController@create')->name('advert.create');
-Route::post('/add-advert', 'AdvertController@store')->name('advert.store');
-
-Route::get('/image', function()
-{
-    $img = Image::make('http://pre07.deviantart.net/7dbb/th/pre/i/2009/155/6/a/patrick_star_by_ninjasaus.png')->resize(300, 200);
-    return $img->response('jpg');
-});
+Route::get('advert/add', 'AdvertController@create')->name('advert.create');
+Route::post('advert/add', 'AdvertController@store')->name('advert.store');
+Route::get('advert/{advert}/delete', 'AdvertController@destroy')->name('advert.destroy')->middleware('can:delete,advert');

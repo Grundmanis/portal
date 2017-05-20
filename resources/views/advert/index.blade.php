@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @if($adverts->count())
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -9,36 +10,37 @@
                 @foreach($filters as $filter)
                     <th>{{ $filter->name }}</th>
                 @endforeach
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         @foreach($adverts as $advert)
             <tr>
-                <td>{{ $advert->id }} @if($user->can('delete', $advert)) <a href="#">delete</a> @endif</td>
+                <td>
+                    @can('delete', $advert)
+                        <form onsubmit="return confirm('Are you sure?')" action="{{ route('advert.destroy', $advert->id) }}" method="get">
+                            {{ $advert->id }}
+                            <input class="btn btn-small btn-danger" type="submit" value="Delete">
+                        </form>
+                    @endcan
+                </td>
                 @foreach($filters as $id => $filter)
                     <td>
                         @if (isset($advert->filters->keyBy('filter_id')[$filter->id]) && $advertFilter = $advert->filters->keyBy('filter_id')[$filter->id])
                             @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
-                                <img src="/{{ $advertFilter->value }}" alt="">
+                                <img src="{{url($advertFilter->value)}}" alt="">
                             @else
                                 {{ $advertFilter->value }}
                             @endif
                         @endif
                     </td>
                 @endforeach
-                <td>
-                    @can('delete', $advert)
-                        <a href="#">x advert</a>
-                    @endcan
-                    @can('delete-advert', $advert)
-                        <a href="#">|| x advert</a>
-                    @endcan
-                </td>
             </tr>
         @endforeach
         </tbody>
     </table>
+    @else
+        <p>No adverts in this category</p>
+    @endif
 </div>
 @endsection
 

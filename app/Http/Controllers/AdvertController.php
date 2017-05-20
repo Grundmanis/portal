@@ -66,20 +66,18 @@ class AdvertController extends Controller
 
             if ($id == AdvertFilter::IMAGE_ID) {
                 $fileName = $value->getClientOriginalName();
-                $value->move('uploads', $fileName);
-                $image = Image::make('uploads/'.$fileName);
+                $path = 'uploads/images/' . $folder . '/' . $advert->id . '/';
+                $value->move($path, $fileName);
+
+                $image = Image::make($path.$fileName);
                 $image->resize(100,80);
 
-                $path = 'uploads/adverts/' . $folder . '/' . $advert->id . '/';
                 if(!File::exists($path)) {
                     File::makeDirectory($path, $mode = 0777, true, true);
                 }
 
-                $value = $path . $fileName;
+                $value = $path . 'thumb_'.$fileName;
                 $image->save($value);
-
-                Storage::delete('/uploads/' . $fileName);
-
             }
 
             $filters[] = new AdvertFilter([
@@ -131,11 +129,12 @@ class AdvertController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Advert $advert)
     {
-        //
+        $advert->delete();
+        return back();
     }
 }

@@ -69,7 +69,7 @@
                     child = this.selectedCategories[index].child;
 
                 // If it's not the last category
-                if (child.length) {
+                if (child && child.length) {
                     // not selected yet
                     this.selectedCategories[nextIndex] = 0;
 

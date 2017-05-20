@@ -10,6 +10,7 @@ class Category extends Model
     use Translatable;
 
     public $translatedAttributes = ['name'];
+    protected $with = ['child'];
     protected $fillable = ['slug'];
 
     public function parents()
