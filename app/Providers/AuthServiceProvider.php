@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Advert;
+use App\Category;
 use App\Policies\AdvertPolicy;
+use App\Policies\CategoryPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -15,8 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-        Advert::class => AdvertPolicy::class
+        Advert::class => AdvertPolicy::class,
+        Category::class => CategoryPolicy::class,
     ];
 
     /**
@@ -29,9 +31,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('delete-advert', function ($user, $advert) {
-            return $user->id == $advert->user_id;
-        });
+//        Gate::define('delete-advert', function ($user, $advert) {
+//            return $user->id == $advert->user_id;
+//        });
 
     }
 }

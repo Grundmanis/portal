@@ -22,6 +22,7 @@
 </head>
 <body>
     <div id="app">
+
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -124,17 +125,19 @@
             </div>
         </nav>
 
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                    <li><a href="{{ route('category.create') }}">Create category</a></li>
-                    <li><a href="{{ route('filter.create') }}">Create filter</a></li>
-                    </ul>
+        @if(Auth::user() && Auth::user()->isAdmin())
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="nav navbar-nav">
+                        <li><a href="{{ route('category.create') }}">Create category</a></li>
+                        <li><a href="{{ route('filter.create') }}">Create filter</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        @endif
 
         @yield('content')
 
