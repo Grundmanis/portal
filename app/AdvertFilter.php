@@ -13,8 +13,8 @@ class AdvertFilter extends Model
 
     protected $fillable = ['advert_id','filter_id'];
 
-    // TODO move to .env
     const IMAGE_ID = 1;
+    const TEXT_ID = 2;
 
     /**
      * The relations to eager load on every query.

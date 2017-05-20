@@ -25,7 +25,7 @@ class CreateAdvertFiltersTable extends Migration
         {
             $table->increments('id');
             $table->integer('advert_filter_id')->unsigned();
-            $table->string('value');
+            $table->text('value');
 
             $table->string('locale')->index();
             $table->unique(['advert_filter_id','locale']);

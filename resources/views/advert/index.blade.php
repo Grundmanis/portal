@@ -6,34 +6,43 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>id</th>
                 @foreach($filters as $filter)
                     <th>{{ $filter->name }}</th>
                 @endforeach
+                @if(Auth::user() && Auth::user()->isAdmin())
+                    <th>
+                        Delete
+                    </th>
+                @endif
             </tr>
         </thead>
         <tbody>
         @foreach($adverts as $advert)
             <tr>
-                <td>
-                    @if($user->can('delete',$advert))
-                        <form onsubmit="return confirm('Are you sure?')" action="{{ route('advert.destroy', $advert->id) }}" method="get">
-                            {{ $advert->id }}
-                            <input class="btn btn-small btn-danger" type="submit" value="Delete">
-                        </form>
-                    @endif
-                </td>
                 @foreach($filters as $id => $filter)
                     <td>
                         @if (isset($advert->filters->keyBy('filter_id')[$filter->id]) && $advertFilter = $advert->filters->keyBy('filter_id')[$filter->id])
                             @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
-                                <img src="{{url($advertFilter->value)}}" alt="">
+                                <a href="">
+                                    <img src="{{url($advertFilter->value)}}" alt="">
+                                </a>
+                            @elseif ($filter->id == \App\AdvertFilter::TEXT_ID)
+                                <a href="">
+                                    {{ \Illuminate\Support\Str::limit($advertFilter->value, 20) }}
+                                </a>
                             @else
                                 {{ $advertFilter->value }}
                             @endif
                         @endif
                     </td>
                 @endforeach
+                @if(Auth::user() && Auth::user()->isAdmin())
+                    <td>
+                        <form onsubmit="return confirm('Are you sure?')" action="{{ route('advert.destroy', $advert->id) }}" method="get">
+                            <input class="btn btn-small btn-danger" type="submit" value="x">
+                        </form>
+                    </td>
+                @endif
             </tr>
         @endforeach
         </tbody>
