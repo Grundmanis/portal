@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Jobs\SendMail;
-use Illuminate\Queue\Events\JobProcessed;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Queue;
+use App\Advert;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -17,9 +15,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
 //        Queue::after(function (JobProcessed $event) {
 //            Log::info($event->connectionName);
 //        });
+
+        Advert::deleted(function (Advert $advert) {
+            $unix = strtotime($advert->created_at);
+            $date = date('Y-m-d',$unix);
+            $folder = strtotime($date);
+
+            $path = '/uploads/'.$folder.'/'.$advert->id . '/';
+            Storage::delete($path);
+
+        });
     }
 
     /**

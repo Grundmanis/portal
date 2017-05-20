@@ -7,6 +7,7 @@ use App\CategoryRelation;
 use App\Service\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -29,6 +30,13 @@ class CategoryController extends Controller
         if ($service->categoryChild->isEmpty()) {
             $service->getAdverts()
                 ->getCategoryFilters();
+
+            $path = public_path() . '/uploads/images/1495238400/29/';
+            if(file_exists($path)) {
+            }
+            $test = Storage::deleteDirectory(public_path() . '/uploads/images/1495238400/29/');
+
+            dd($test);
 
             return view('advert.index',[
                 'adverts' => $service->adverts,
