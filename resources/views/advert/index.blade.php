@@ -9,12 +9,13 @@
                 @foreach($filters as $filter)
                     <th>{{ $filter->name }}</th>
                 @endforeach
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         @foreach($adverts as $advert)
             <tr>
-                <td>{{ $advert->id }}</td>
+                <td>{{ $advert->id }} @if($user->can('delete', $advert)) <a href="#">delete</a> @endif</td>
                 @foreach($filters as $id => $filter)
                     <td>
                         @if (isset($advert->filters->keyBy('filter_id')[$filter->id]) && $advertFilter = $advert->filters->keyBy('filter_id')[$filter->id])
@@ -26,6 +27,14 @@
                         @endif
                     </td>
                 @endforeach
+                <td>
+                    @can('delete', $advert)
+                        <a href="#">x advert</a>
+                    @endcan
+                    @can('delete-advert', $advert)
+                        <a href="#">|| x advert</a>
+                    @endcan
+                </td>
             </tr>
         @endforeach
         </tbody>

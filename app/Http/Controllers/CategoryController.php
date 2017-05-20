@@ -6,6 +6,7 @@ use App\Category;
 use App\CategoryRelation;
 use App\Service\CategoryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -32,7 +33,8 @@ class CategoryController extends Controller
             return view('advert.index',[
                 'adverts' => $service->adverts,
                 'category' => $service->category,
-                'filters' => $service->filters
+                'filters' => $service->filters,
+                'user' => Auth::user()
             ]);
         }
 
