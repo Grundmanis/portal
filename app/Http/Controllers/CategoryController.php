@@ -31,13 +31,6 @@ class CategoryController extends Controller
             $service->getAdverts()
                 ->getCategoryFilters();
 
-            $path = public_path() . '/uploads/images/1495238400/29/';
-            if(file_exists($path)) {
-            }
-            $test = Storage::deleteDirectory(public_path() . '/uploads/images/1495238400/29/');
-
-            dd($test);
-
             return view('advert.index',[
                 'adverts' => $service->adverts,
                 'category' => $service->category,
