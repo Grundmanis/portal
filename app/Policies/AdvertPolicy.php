@@ -10,11 +10,6 @@ class AdvertPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
-    {
-        return true;
-    }
-
     /**
      * Determine whether the user can view the advert.
      *
@@ -47,7 +42,7 @@ class AdvertPolicy
      */
     public function update(User $user, Advert $advert)
     {
-        return $user->id === $advert->user_id;
+        return $user->isAdmin() ? true : $user->id === $advert->user_id;
     }
 
     /**
@@ -59,6 +54,6 @@ class AdvertPolicy
      */
     public function delete(User $user, Advert $advert)
     {
-        //
+        return $user->isAdmin() ? true : $user->id === $advert->user_id;
     }
 }

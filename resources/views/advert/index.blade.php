@@ -16,12 +16,12 @@
         @foreach($adverts as $advert)
             <tr>
                 <td>
-                    @can('delete', $advert)
+                    @if($user->can('delete',$advert))
                         <form onsubmit="return confirm('Are you sure?')" action="{{ route('advert.destroy', $advert->id) }}" method="get">
                             {{ $advert->id }}
                             <input class="btn btn-small btn-danger" type="submit" value="Delete">
                         </form>
-                    @endcan
+                    @endif
                 </td>
                 @foreach($filters as $id => $filter)
                     <td>
