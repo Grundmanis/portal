@@ -17,10 +17,12 @@ class Advert extends Model
         foreach ($this->filters as $filter) {
             if ($filter->filter_id == AdvertFilter::IMAGE_ID) {
                 $images = json_decode($filter->value);
-                return Storage::url($images[0]);
+                if (Storage::exists($images[0])) {
+                    return Storage::url($images[0]);
+                }
             }
         }
-        return null;
+        return url('images/no-image.svg');
     }
 
     public function getImages() {

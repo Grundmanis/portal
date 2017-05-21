@@ -24,10 +24,8 @@ class AppServiceProvider extends ServiceProvider
             $unix = strtotime($advert->created_at);
             $date = date('Y-m-d',$unix);
             $folder = strtotime($date);
-
-            $path = '/uploads/'.$folder.'/'.$advert->id . '/';
-            Storage::delete($path);
-
+            $path = '/public/uploads/images/'.$folder.'/'.$advert->id . '/';
+            Storage::deleteDirectory($path);
         });
     }
 
