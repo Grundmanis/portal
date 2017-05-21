@@ -66,20 +66,26 @@ class AdvertController extends Controller
 
             if (!$value) continue;
 
-            if ($id == AdvertFilter::IMAGE_ID) {
-                $fileName = $value->getClientOriginalName();
-                $path = 'uploads/images/' . $folder . '/' . $advert->id . '/';
-                $value->move($path, $fileName);
+            if ($id == 'images') {
+                $id = AdvertFilter::IMAGE_ID;
+                $images = [];
+                foreach ($value as $v) {
+                    $fileName = $v->getClientOriginalName();
+                    $path = 'uploads/images/' . $folder . '/' . $advert->id . '/';
+                    $v->move($path, $fileName);
 
-                $image = Image::make($path.$fileName);
-                $image->resize(100,80);
+                    $image = Image::make($path.$fileName);
+                    $image->resize(100,80);
 
-                if(!File::exists($path)) {
-                    File::makeDirectory($path, $mode = 0777, true, true);
+                    if(!File::exists($path)) {
+                        File::makeDirectory($path, $mode = 0777, true, true);
+                    }
+
+                    $v = $path . 'thumb_'.$fileName;
+                    $image->save($v);
+                    $images[] = $v;
                 }
-
-                $value = $path . 'thumb_'.$fileName;
-                $image->save($value);
+                $value = json_encode($images);
             }
 
             $filters[] = new AdvertFilter([

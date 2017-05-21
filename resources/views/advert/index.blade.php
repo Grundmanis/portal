@@ -24,11 +24,11 @@
                         @if (isset($advert->filters->keyBy('filter_id')[$filter->id]) && $advertFilter = $advert->filters->keyBy('filter_id')[$filter->id])
                             @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
                                 <a href="{{ route('advert.show', $advert->id) }}">
-                                    <img src="{{url($advertFilter->value)}}" alt="">
+                                    <img src="{{$advert->getImage()}}" alt="">
                                 </a>
                             @elseif ($filter->id == \App\AdvertFilter::TEXT_ID)
                                 <a href="{{ route('advert.show', $advert->id) }}">
-                                    {{ \Illuminate\Support\Str::limit($advertFilter->value, 20) }}
+                                    {{ \Illuminate\Support\Str::limit($advert->getText(), 20) }}
                                 </a>
                             @else
                                 {{ $advertFilter->value }}

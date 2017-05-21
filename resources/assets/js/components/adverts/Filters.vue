@@ -13,7 +13,7 @@
         <div v-if="filter.type == 'images'">
             <div class="form-group">
                 <label :for="filter.key">{{ filter.name }}</label>
-                <input class="form-control" type="file" multiple :id="filter.key" :name="filter.id">
+                <input class="form-control" type="file" multiple :id="filter.key" name="images[]">
             </div>
         </div>
     </div>

@@ -15,7 +15,8 @@ class Advert extends Model
     public function getImage() {
         foreach ($this->filters as $filter) {
             if ($filter->filter_id == AdvertFilter::IMAGE_ID) {
-                return $filter->value;
+                $images = json_decode($filter->value);
+                return url($images[0]);
             }
         }
         return null;
