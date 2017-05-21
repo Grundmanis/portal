@@ -53,8 +53,7 @@ class AdvertController extends Controller
         $advert->user_id = Auth::user()->id;
         $advert->save();
 
-        $unix = strtotime($advert->created_at);
-        $date = date('Y-m-d',$unix);
+        $date = date('Y-m-d',strtotime($advert->created_at));
         $folder = strtotime($date);
 
         unset($data['_token']);
@@ -62,27 +61,31 @@ class AdvertController extends Controller
         unset($data['category_parent_id']);
 
         // Save advert filters
-        $filters = [];
-        foreach ($data as $id => $value) {
+        $filters = $images = collect();
+        foreach ($data as $filter_id => $filter) {
 
-            if (!$value) continue;
+            if (!$filter) continue;
 
-            if ($id == 'images') {
-                $id = AdvertFilter::IMAGE_ID;
-                $images = [];
-                foreach ($value as $v) {
+            if ($filter_id == 'images') {
+
+                foreach ($filter as $k => $img) {
+
                     $path = 'public/uploads/images/' . $folder . '/' . $advert->id . '/';
                     $fileName = $v->store($path);
-                    $images[] = $fileName;
+
+                    $images->push($fileName);
                 }
-                $value = json_encode($images);
+
+                $filter = json_encode($images->toArray());
+                $filter_id = AdvertFilter::IMAGE_ID;
+
             }
 
-            $filters[] = new AdvertFilter([
+            $filters->push(new AdvertFilter([
                 'advert_id' => $advert->id,
-                'filter_id' => $id,
-                'value' => $value
-            ]);
+                'filter_id' => $filter_id,
+                'value' => $filter
+            ]));
         }
 
         $advert->filters()->saveMany($filters);

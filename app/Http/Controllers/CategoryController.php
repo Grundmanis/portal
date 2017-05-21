@@ -7,6 +7,7 @@ use App\CategoryRelation;
 use App\Service\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {

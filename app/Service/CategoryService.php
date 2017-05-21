@@ -70,7 +70,7 @@ class CategoryService
         if ($this->categoryParent) {
             $this->adverts = $this->adverts->where('category_parent_id',$this->categoryParent->id);
         }
-        $this->adverts = $this->adverts->with('filters')->paginate(15);
+        $this->adverts = $this->adverts->orderBy('id','desc')->with('filters')->paginate(5);
         return $this;
     }
 
