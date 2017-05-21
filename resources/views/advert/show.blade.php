@@ -11,9 +11,9 @@
 
         <table class="table table-bordered">
             @foreach($advert->filters as $filter)
-                @if (!$filter->filter->in_all_categories)
+                @if ($filter->filter_id != \App\AdvertFilter::IMAGE_ID && $filter->filter_id != \App\AdvertFilter::TEXT_ID)
                     <tr>
-                        <td width="1" style="white-space: nowrap">{{ $filter->filter->name }}</td>
+                        <td width="1" style="white-space: nowrap">{{ ucfirst($filter->filter->name) }}</td>
                         <td>{{ $filter->value }}</td>
                     </tr>
                 @endif
@@ -21,35 +21,7 @@
         </table>
 
         <div class="row">
-            <div class="col-sm-4">
-                <table class="table table-bordered">
-                    <tr>
-                        <td>Phone:</td>
-                        <td>+371 20066404</td>
-                    </tr>
-                    <tr>
-                        <td>Second Phone:</td>
-                        <td>+371 26044610</td>
-                    </tr>
-                    <tr>
-                        <td>WEB:</td>
-                        <td><a href="#">WWW</a></td>
-                    </tr>
-                    <tr>
-                        <td>Place:</td>
-                        <td><a href="#">Latvia, Riga</a></td>
-                    </tr>
-                    <tr>
-                        <td>Address:</td>
-                        <td><a href="#">Bultu iela 4</a></td>
-                    </tr>
-                    <tr>
-                        <td>E-mail:</td>
-                        <td><a href="#">***st@webchill.lv</a></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-sm-8">
+            <div class="col-sm-12">
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         <ul>
