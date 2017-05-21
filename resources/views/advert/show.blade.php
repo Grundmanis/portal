@@ -1,9 +1,29 @@
 @extends('layouts.app')
 
+@section('styles')
+        <!-- 1. Link to jQuery (1.8 or later), -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> <!-- 33 KB -->
+
+<!-- fotorama.css & fotorama.js. -->
+<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> <!-- 3 KB -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-- 16 KB -->
+
+@endsection
+
 @section('content')
     <div class="container">
 
-        <img src="{{ url($advert->getImage()) }}" alt="">
+        @if ($advert->getImages())
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="fotorama">
+                        @foreach($advert->getImages() as $image)
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($image) }}">
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <p>
             {{ $advert->getText() }}
@@ -73,4 +93,5 @@
 @endsection
 
 @section('scripts')
+
 @endsection

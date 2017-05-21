@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Advert extends Model
 {
@@ -12,11 +13,20 @@ class Advert extends Model
         return $this->hasMany(AdvertFilter::class);
     }
 
-    public function getImage() {
+    public function getFirstImage() {
         foreach ($this->filters as $filter) {
             if ($filter->filter_id == AdvertFilter::IMAGE_ID) {
                 $images = json_decode($filter->value);
-                return url($images[0]);
+                return Storage::url($images[0]);
+            }
+        }
+        return null;
+    }
+
+    public function getImages() {
+        foreach ($this->filters as $filter) {
+            if ($filter->filter_id == AdvertFilter::IMAGE_ID) {
+                return json_decode($filter->value);
             }
         }
         return null;

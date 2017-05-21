@@ -24,7 +24,7 @@
                         @if (isset($advert->filters->keyBy('filter_id')[$filter->id]) && $advertFilter = $advert->filters->keyBy('filter_id')[$filter->id])
                             @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
                                 <a href="{{ route('advert.show', $advert->id) }}">
-                                    <img src="{{$advert->getImage()}}" alt="">
+                                    <img width="100" src="{{$advert->getFirstImage()}}" alt="">
                                 </a>
                             @elseif ($filter->id == \App\AdvertFilter::TEXT_ID)
                                 <a href="{{ route('advert.show', $advert->id) }}">

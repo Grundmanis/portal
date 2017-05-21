@@ -70,6 +70,52 @@ class AdvertController extends Controller
                 $id = AdvertFilter::IMAGE_ID;
                 $images = [];
                 foreach ($value as $v) {
+                    $path = 'public/uploads/images/' . $folder . '/' . $advert->id . '/';
+                    $fileName = $v->store($path);
+                    $images[] = $fileName;
+                }
+                $value = json_encode($images);
+            }
+
+            $filters[] = new AdvertFilter([
+                'advert_id' => $advert->id,
+                'filter_id' => $id,
+                'value' => $value
+            ]);
+        }
+
+        $advert->filters()->saveMany($filters);
+
+        return redirect('/');
+    }
+
+    public function store_bak (Request $request)
+    {
+        $data = $request->all();
+
+        $advert = new Advert();
+        $advert->fill($data);
+        $advert->user_id = Auth::user()->id;
+        $advert->save();
+
+        $unix = strtotime($advert->created_at);
+        $date = date('Y-m-d',$unix);
+        $folder = strtotime($date);
+
+        unset($data['_token']);
+        unset($data['category_id']);
+        unset($data['category_parent_id']);
+
+        // Save advert filters
+        $filters = [];
+        foreach ($data as $id => $value) {
+
+            if (!$value) continue;
+
+            if ($id == 'images') {
+                $id = AdvertFilter::IMAGE_ID;
+                $images = [];
+                foreach ($value as $v) {
                     $fileName = $v->getClientOriginalName();
                     $path = 'uploads/images/' . $folder . '/' . $advert->id . '/';
                     $v->move($path, $fileName);
