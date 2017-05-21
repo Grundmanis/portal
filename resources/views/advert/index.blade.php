@@ -33,6 +33,12 @@
                             @else
                                 {{ $advertFilter->value }}
                             @endif
+                        @else
+                            @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
+                                <a href="{{ route('advert.show', $advert->id) }}">
+                                    <img width="100" src="{{url('images/no-image.svg')}}" alt="">
+                                </a>
+                            @endif
                         @endif
                     </td>
                 @endforeach
