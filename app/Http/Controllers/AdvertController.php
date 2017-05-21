@@ -94,12 +94,14 @@ class AdvertController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($advert)
     {
-        //
+        return view('advert.show',[
+            'advert' => $advert->load('filters.filter')
+        ]);
     }
 
     /**

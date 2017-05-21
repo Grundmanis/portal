@@ -39,4 +39,5 @@ Route::group(['prefix' => 'advert', 'middleware' => 'auth'], function(){
     Route::get('create', 'AdvertController@create')->name('advert.create');
     Route::post('create', 'AdvertController@store')->name('advert.store');
     Route::get('{advert}/delete', 'AdvertController@destroy')->name('advert.destroy')->middleware('can:delete,advert');
+    Route::get('{advert}', 'AdvertController@show')->name('advert.show');
 });
