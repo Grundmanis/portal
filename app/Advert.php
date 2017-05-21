@@ -18,6 +18,7 @@ class Advert extends Model
                 return $filter->value;
             }
         }
+        return null;
     }
 
     public function getText() {
@@ -26,6 +27,11 @@ class Advert extends Model
                 return $filter->value;
             }
         }
+        return null;
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
 }

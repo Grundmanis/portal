@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdvertsListRequest extends FormRequest
+class MessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class AdvertsListRequest extends FormRequest
     public function rules()
     {
         return [
-            'per_page' => 'in:2,4,6|numeric'
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required',
         ];
     }
 }

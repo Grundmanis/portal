@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\AdvertFilter;
 use App\Category;
+use App\Http\Requests\MessageRequest;
+use App\Mail\SendMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 
 class AdvertController extends Controller
@@ -137,5 +140,10 @@ class AdvertController extends Controller
     {
         $advert->delete();
         return back();
+    }
+
+    public function message(Advert $advert, MessageRequest $request) {
+        $receiverMail = $advert->user->email;
+        Mail::to($receiverMail)->send(new SendMessage($advert, $request));
     }
 }

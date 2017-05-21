@@ -50,23 +50,33 @@
                 </table>
             </div>
             <div class="col-sm-8">
-                <form role="form" id="contact-form" class="contact-form">
+                @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form role="form" method="post" action="{{ route('advert.message', $advert->id) }}" id="contact-form" class="contact-form">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="Name" autocomplete="off" id="Name" placeholder="Name">
+                                <input type="text" class="form-control" value="{{ old('name') }}" name="name" autocomplete="off" id="Name" placeholder="Name">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" autocomplete="off" id="email" placeholder="E-mail">
+                                <input type="email" class="form-control" value="{{ old('email') }}" name="email" autocomplete="off" id="email" placeholder="E-mail">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea class="form-control textarea" rows="8" name="Message" id="Message" placeholder="Message"></textarea>
+                                <textarea class="form-control" rows="8" name="message" id="message" placeholder="Message">{{ old('message') }}</textarea>
                             </div>
                         </div>
                     </div>
