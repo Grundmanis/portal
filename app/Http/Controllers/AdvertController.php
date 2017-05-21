@@ -145,5 +145,14 @@ class AdvertController extends Controller
     public function message(Advert $advert, MessageRequest $request) {
         $receiverMail = $advert->user->email;
         Mail::to($receiverMail)->send(new SendMessage($advert, $request));
+
+        if (Mail::failures()) {
+            $request->session()->flash('success_message', 'Something was wrong, try again.');
+        } else {
+            $request->session()->flash('success_message', 'Message was sent!');
+        }
+
+        return back();
+
     }
 }

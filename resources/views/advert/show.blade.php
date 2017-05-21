@@ -59,33 +59,40 @@
                         </ul>
                     </div>
                 @endif
-                <form role="form" method="post" action="{{ route('advert.message', $advert->id) }}" id="contact-form" class="contact-form">
-                    {{ csrf_field() }}
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" value="{{ old('name') }}" name="name" autocomplete="off" id="Name" placeholder="Name">
+                @if(Session::has('error_message'))
+                    <div class="alert alert-danger">{!! session('error_message') !!}</div>
+                @endif
+                @if(Session::has('success_message'))
+                    <div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span><em> {!! session('success_message') !!}</em></div>
+                @else
+                    <form role="form" method="post" action="{{ route('advert.message', $advert->id) }}" id="contact-form" class="contact-form">
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="{{ old('name') }}" name="name" id="Name" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" value="{{ old('email') }}" name="email" id="email" placeholder="E-mail">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="email" class="form-control" value="{{ old('email') }}" name="email" autocomplete="off" id="email" placeholder="E-mail">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="8" name="message" id="message" placeholder="Message">{{ old('message') }}</textarea>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <textarea class="form-control" rows="8" name="message" id="message" placeholder="Message">{{ old('message') }}</textarea>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-success pull-right">Send a message</button>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-success pull-right">Send a message</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
 
