@@ -8,11 +8,16 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="in_adverts_list">
-                        <input id="in_adverts_list" type="checkbox" name="in_adverts_list"> Show in adverts list
+                        <input id="in_adverts_list" type="checkbox" name="in_adverts_list"> Show in table
                     </label>
+                    <small class="help-block">Show in adverts table as column</small>
                 </div>
-            </div>
-            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="in_filters">
+                        <input id="in_filters" type="checkbox" name="in_filters"> Show in filters
+                    </label>
+                    <small class="help-block">Show this filter in filters section</small>
+                </div>
                 <div class="form-group">
                     <label for="in_all_categories">
                         <input id="in_all_categories" type="checkbox" name="in_all_categories"> For all categories
@@ -44,14 +49,6 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="in_filters">
-                        <input id="in_filters" type="checkbox" name="in_filters"> Showing in filters
-                    </label>
-                    <small class="help-block">On advert list page show these filters or not</small>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
                     <label for="type">Filter type</label>
                     <select class="form-control" name="type" id="type">
                         <option value="select">Select</option>
@@ -63,6 +60,12 @@
                     </select>
                 </div>
             </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="key">Key</label>
+                    <input placeholder="Unique filter key" class="form-control" type="text" id="key" name="key">
+                </div>
+            </div>
             <div class="col-sm-12">
                 @foreach(config('translatable.locales') as $lng => $key)
                     <div class="panel panel-default">
@@ -72,11 +75,11 @@
                         <div class="panel-body">
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input placeholder="name" class="form-control" type="text" id="name" name="name[{{$key}}]">
+                                <input placeholder="name" class="form-control" type="text" id="name" name="{{$key}}[name]">
                             </div>
                             <div class="form-group">
                                 <label for="value">Value</label>
-                                <input placeholder="value" class="form-control" type="text" id="value" name="value[{{$key}}]">
+                                <input placeholder="value" class="form-control" type="text" id="value" name="{{$key}}[value]">
                             </div>
                         </div>
                     </div>

@@ -2,6 +2,8 @@
 
 return [
 
+    'uploads_folder' => 'uploads/images/',
+
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk

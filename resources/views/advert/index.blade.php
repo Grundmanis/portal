@@ -6,6 +6,12 @@
     <table class="table table-bordered">
         <thead>
             <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Text
+                </th>
                 @foreach($filters as $filter)
                     <th>{{ $filter->name }}</th>
                 @endforeach
@@ -19,26 +25,20 @@
         <tbody>
         @foreach($adverts as $advert)
             <tr>
+                <td>
+                    <a href="{{ route('advert.show', $advert->id) }}">
+                        <img width="100" src="{{$advert->getThumb()}}" alt="">
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('advert.show', $advert->id) }}">
+                        {{ \Illuminate\Support\Str::limit($advert->text, 20) }}
+                    </a>
+                </td>
                 @foreach($filters as $id => $filter)
                     <td>
                         @if (isset($advert->filters->keyBy('filter_id')[$filter->id]) && $advertFilter = $advert->filters->keyBy('filter_id')[$filter->id])
-                            @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
-                                <a href="{{ route('advert.show', $advert->id) }}">
-                                    <img width="100" src="{{$advert->getFirstImage()}}" alt="">
-                                </a>
-                            @elseif ($filter->id == \App\AdvertFilter::TEXT_ID)
-                                <a href="{{ route('advert.show', $advert->id) }}">
-                                    {{ \Illuminate\Support\Str::limit($advert->getText(), 20) }}
-                                </a>
-                            @else
-                                {{ $advertFilter->value }}
-                            @endif
-                        @else
-                            @if ($filter->id == \App\AdvertFilter::IMAGE_ID)
-                                <a href="{{ route('advert.show', $advert->id) }}">
-                                    <img width="100" src="{{url('images/no-image.svg')}}" alt="">
-                                </a>
-                            @endif
+                            {{ $advertFilter->value }}
                         @endif
                     </td>
                 @endforeach

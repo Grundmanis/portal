@@ -38,21 +38,8 @@ class FilterController extends Controller
      */
     public function store(Request $request)
     {
-        // save translations
-        $data = [
-            'category_parent_id' => $request->category_parent_id,
-            'category_id' => $request->category_id,
-            'type' => $request->type,
-            'in_filters' => $request->in_filters == 'on' ? 1 : 0,
-            'in_adverts_list' => $request->in_adverts_list == 'on' ? 1 : 0,
-            'in_all_categories' => $request->in_all_categories == 'on' ? 1 : 0,
-            'en' => ['name' => $request->name['en'],'value' => $request->value['en']],
-            'lv' => ['name' => $request->name['lv'],'value' => $request->value['lv']],
-            'ru' => ['name' => $request->name['ru'],'value' => $request->value['ru']],
-        ];
-
-        Filter::create($data);
-
+        $filter = new Filter();
+        $filter->fill($request->all())->save();
         return redirect('/');
     }
 

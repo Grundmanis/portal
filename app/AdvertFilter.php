@@ -12,10 +12,7 @@ class AdvertFilter extends Model
     public $translatedAttributes = ['value'];
 
     protected $fillable = ['advert_id','filter_id'];
-
-    const IMAGE_ID = 1;
-    const TEXT_ID = 2;
-
+    
     /**
      * The relations to eager load on every query.
      *

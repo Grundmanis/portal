@@ -28,11 +28,23 @@
                 <input type="hidden" v-model="category_id" name="category_id">
                 <input type="hidden" v-model="category_parent_id" name="category_parent_id">
                 <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="text">Text</label>
+                            <textarea style="resize: none" class="form-control" id="text" cols="30" rows="10" name="text"></textarea>
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <Filters v-bind:filter="filter" v-for="filter in filters[0]"></Filters>
                     </div>
                     <div class="col-sm-6">
                         <Filters v-bind:filter="filter" v-for="filter in filters[1]"></Filters>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="images">Images</label>
+                            <input class="form-control" type="file" multiple id="images" name="images[]">
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Add</button>

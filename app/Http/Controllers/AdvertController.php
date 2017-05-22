@@ -46,50 +46,77 @@ class AdvertController extends Controller
      */
     public function store(Request $request)
     {
+        // Save advert
         $data = $request->all();
 
         $advert = new Advert();
-        $advert->fill($data);
         $advert->user_id = Auth::user()->id;
-        $advert->save();
-
-        $date = date('Y-m-d',strtotime($advert->created_at));
-        $folder = strtotime($date);
-
-        unset($data['_token']);
-        unset($data['category_id']);
-        unset($data['category_parent_id']);
+        $advert->fill($data)->save();
 
         // Save advert filters
         $filters = $images = collect();
-        foreach ($data as $filter_id => $filter) {
-
-            if (!$filter) continue;
-
-            if ($filter_id == 'images') {
-
-                foreach ($filter as $k => $img) {
-
-                    $path = 'public/uploads/images/' . $folder . '/' . $advert->id . '/';
-                    $fileName = $v->store($path);
-
-                    $images->push($fileName);
-                }
-
-                $filter = json_encode($images->toArray());
-                $filter_id = AdvertFilter::IMAGE_ID;
-
+        if (!empty($data['filters'])) {
+            foreach ($data['filters'] as $filter_id => $filter) {
+                if (!$filter) continue;
+                $filters->push(new AdvertFilter([
+                    'advert_id' => $advert->id,
+                    'filter_id' => $filter_id,
+                    'value' => $filter
+                ]));
             }
-
-            $filters->push(new AdvertFilter([
-                'advert_id' => $advert->id,
-                'filter_id' => $filter_id,
-                'value' => $filter
-            ]));
+            $advert->filters()->saveMany($filters);
         }
 
-        $advert->filters()->saveMany($filters);
+        // Save images
+        $date = strtotime(date('Y-m-d',time()));
+        $folder = config('filesystems.uploads_folder') . $date . '/' . $advert->id . '/';
 
+        if (!empty($data['images'])) {
+            foreach ($data['images'] as $k => $file) {
+
+                // create folder
+                if (!File::exists($folder))
+                {
+                    Storage::makeDirectory('public/' . $folder);
+                }
+
+                $fileName = md5(uniqid()) . '.' . $file->getClientOriginalExtension();
+                $path = $folder . $fileName;
+
+                $image = Image::make($file->getRealPath());
+                $image->resize(null, 800, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                $image->save('storage/' . $folder . $fileName);
+                $images->push(new \App\Image([
+                    'advert_id' => $advert->id,
+                    'url' => $path
+                ]));
+
+                // thumb
+                if (!$k) {
+                    $fileName = md5(uniqid()) . '.' . $file->getClientOriginalExtension();
+
+                    $thumb = clone $image;
+                    $thumb->resize(100, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    });
+                    $thumb->crop(100, 70, 0, 0);
+
+                    $thumb->save('storage/' . $folder . $fileName);
+
+                    $images->push(new \App\Image([
+                        'advert_id' => $advert->id,
+                        'url' => $folder . $fileName,
+                        'thumb' => 1
+                    ]));
+                }
+            }
+        }
+
+        $advert->images()->saveMany($images);
+        
         return redirect('/');
     }
 

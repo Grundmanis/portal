@@ -13,12 +13,14 @@
 @section('content')
     <div class="container">
 
-        @if ($advert->getImages())
+        @if ($advert->images)
             <div class="row">
                 <div class="col-sm-12">
                     <div class="fotorama">
-                        @foreach($advert->getImages() as $image)
-                            <img src="{{ \Illuminate\Support\Facades\Storage::url($image) }}">
+                        @foreach($advert->images as $image)
+                            @if (!$image->thumb)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::url($image->url) }}">
+                            @endif
                         @endforeach
                     </div>
                 </div>
@@ -26,7 +28,7 @@
         @endif
 
         <p>
-            {{ $advert->getText() }}
+            {{ $advert->text }}
         </p>
 
         <table class="table table-bordered">
