@@ -33,12 +33,10 @@
 
         <table class="table table-bordered">
             @foreach($advert->filters as $filter)
-                @if ($filter->filter_id != \App\AdvertFilter::IMAGE_ID && $filter->filter_id != \App\AdvertFilter::TEXT_ID)
-                    <tr>
-                        <td width="1" style="white-space: nowrap">{{ ucfirst($filter->filter->name) }}</td>
-                        <td>{{ $filter->value }}</td>
-                    </tr>
-                @endif
+                <tr>
+                    <td width="1" style="white-space: nowrap">{{ ucfirst($filter->filter->name) }}</td>
+                    <td>{{ $filter->value }}</td>
+                </tr>
             @endforeach
         </table>
 

@@ -84,8 +84,9 @@ class AdvertController extends Controller
                 $path = $folder . $fileName;
 
                 $image = Image::make($file->getRealPath());
-                $image->resize(null, 800, function ($constraint) {
+                $image->resize(800, 800, function ($constraint) {
                     $constraint->aspectRatio();
+                    $constraint->upsize();
                 });
                 $image->save('storage/' . $folder . $fileName);
                 $images->push(new \App\Image([
