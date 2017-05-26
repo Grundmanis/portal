@@ -18,12 +18,12 @@ Route::group([
 
     Route::get('/', 'CategoryController@index');
 
-// Auth
+    // Auth
     Auth::routes();
     Route::get('/login/{service}', 'Auth\LoginController@redirectToProvider');
     Route::get('/login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
 
-// Categories
+    // Categories
     Route::group(['prefix' => 'category'], function(){
         Route::group(['middleware' => 'admin'], function(){
             Route::get('/create', 'CategoryController@create')->name('category.create');
@@ -33,14 +33,14 @@ Route::group([
         Route::get('/{categories}', 'CategoryController@categories')->where('categories', '(.*)')->name('category.categories');
     });
 
-// Filters
+    // Filters
     Route::group(['prefix' => 'filter', 'middleware' => 'admin'], function(){
         Route::get('{category_slug}/{subcategory_slug}', 'FilterController@show')->name('filter.show');
         Route::get('create', 'FilterController@create')->name('filter.create');
         Route::post('create', 'FilterController@store')->name('filter.store');
     });
 
-// Adverts
+    // Adverts
     Route::group(['prefix' => 'advert', 'middleware' => 'auth'], function(){
         Route::get('create', 'AdvertController@create')->name('advert.create');
         Route::post('create', 'AdvertController@store')->name('advert.store');
@@ -48,4 +48,5 @@ Route::group([
         Route::get('{advert}', 'AdvertController@show')->name('advert.show');
         Route::post('{advert}/message', 'AdvertController@message')->name('advert.message');
     });
+    
 });

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <newadvert category_list="{{$categories}}"></newadvert>
+        <newadvert translations="{{ json_encode(__('forms')) }}" category_list="{{$categories}}"></newadvert>
     </div>
 @endsection
 

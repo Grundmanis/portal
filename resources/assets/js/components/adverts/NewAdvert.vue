@@ -1,13 +1,13 @@
 <template>
     <div>
         <div v-if="step == 1">
-            <h3>Step 1</h3>
+            <h3>{{ trans.step }} 1</h3>
 
             <div class="row">
                 <div class="col-sm-3" v-for="(selected,index) in selectedCategories">
                     <div class="form-group">
                         <select title="" class="form-control" v-on:change="categoryChanged(index)" v-model="selectedCategories[index]">
-                            <option value="0">- please choose category -</option>
+                            <option value="0">- {{ trans.choose_category }} -</option>
                             <option v-if="!index && !category.parents.length || index && !category.parents" :value="category" v-for="category in categories[index]">{{ category.name }}</option>
                         </select>
                     </div>
@@ -15,14 +15,14 @@
 
                 <div class="col-sm-3" v-if="categoriesSelected">
                     <div class="form-group">
-                        <button v-on:click="getCategoryFilters()" class="btn btn-success">Continue</button>
+                        <button v-on:click="getCategoryFilters()" class="btn btn-success">{{ trans.continue }}</button>
                     </div>
                 </div>
 
             </div>
         </div>
         <div v-if="step == 2">
-            <h3>Step 2</h3>
+            <h3>{{ trans.step }} 2</h3>
             <form enctype="multipart/form-data" method="post">
                 <input type="hidden" v-model="token" name="_token">
                 <input type="hidden" v-model="category_id" name="category_id">
@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="text">Text</label>
+                            <label for="text">{{ trans.text }}</label>
                             <textarea style="resize: none" class="form-control" id="text" cols="30" rows="10" name="text"></textarea>
                         </div>
                     </div>
@@ -42,12 +42,12 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="images">Images</label>
+                            <label for="images">{{ trans.images }}</label>
                             <input class="form-control" type="file" multiple id="images" name="images[]">
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Add</button>
+                <button type="submit" class="btn btn-success">{{ trans.add }}</button>
             </form>
         </div>
 
@@ -60,7 +60,8 @@
 
     export default {
         props: [
-            'category_list'
+            'category_list',
+            'translations'
         ],
         data() {
             return {
@@ -71,7 +72,8 @@
                 step: 1,
                 category_id: 0,
                 category_parent_id: 0,
-                filters: {}
+                filters: {},
+                trans: JSON.parse(this.translations)
             }
         },
         components: { Filters },

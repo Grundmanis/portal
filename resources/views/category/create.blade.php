@@ -8,18 +8,18 @@
             <div class="col-sm-6">
                 @foreach(config('translatable.locales') as $lng => $key)
                     <div class="form-group">
-                        <label for="text">{{ $lng }} name</label>
+                        <label for="text">{{ $lng }} {{ __('forms.name') }}</label>
                         <input placeholder="{{ $key }}" class="form-control" type="text" id="name" name="name[{{$key}}]">
                     </div>
                 @endforeach
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="slug">Slug</label>
-                    <input placeholder="Category name showing in URL" class="form-control" type="text" id="slug" name="slug">
+                    <label for="slug">{{ __('forms.slug') }}</label>
+                    <input placeholder="{{ __('forms.slug_description') }}" class="form-control" type="text" id="slug" name="slug">
                 </div>
                 <div class="form-group">
-                    <label for="parent_id">Parent categories</label>
+                    <label for="parent_id">{{ __('forms.parent_categories') }}</label>
                     <select class="form-control" name="parent_id[]" multiple id="parent_id">
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{ $category->name }}</option>
@@ -27,7 +27,7 @@
                     </select>
                 </div>
                 <div class="form-group text-right">
-                    <button class="btn btn-success">Create</button>
+                    <button class="btn btn-success">{{ __('forms.create') }}</button>
                 </div>
             </div>
         </div>

@@ -62,25 +62,25 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" value="{{ old('name') }}" name="name" id="Name" placeholder="Name">
+                                        <input type="text" class="form-control" value="{{ old('name') }}" name="name" id="name" placeholder="{{ __('forms.name') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" value="{{ old('email') }}" name="email" id="email" placeholder="E-mail">
+                                        <input type="email" class="form-control" value="{{ old('email') }}" name="email" id="email" placeholder="{{ __('forms.email') }}">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="8" name="message" id="message" placeholder="Message">{{ old('message') }}</textarea>
+                                        <textarea class="form-control" rows="8" name="message" id="message" placeholder="{{ __('forms.message') }}">{{ old('message') }}</textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-success pull-right">Send a message</button>
+                                    <button type="submit" class="btn btn-success pull-right">{{ __('forms.send_message') }}</button>
                                 </div>
                             </div>
                     </form>

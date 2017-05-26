@@ -66,7 +66,7 @@
 
                         <li>
                             <div class="navbar-form">
-                                <a href="{{ route('advert.create') }}" class="btn btn-success">Add advert</a>
+                                <a href="{{ route('advert.create') }}" class="btn btn-success">{{ __('menu.add_advert') }}</a>
                             </div>
                         </li>
 
@@ -80,22 +80,22 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="#">
-                                        My Favorites
+                                        {{ __('menu.my_favorites') }}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        My Comparing
+                                        {{ __('menu.my_comparing') }}
                                     </a>
                                 </li>
                                 @if (Auth::guest())
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="{{ route('login') }}">Login</a></li>
-                                    <li><a href="{{ route('register') }}">Register</a></li>
+                                    <li><a href="{{ route('login') }}">{{ __('menu.login') }}</a></li>
+                                    <li><a href="{{ route('register') }}">{{ __('menu.register') }}</a></li>
                                 @else
                                     <li>
                                         <a href="#">
-                                            My Adverts
+                                            {{ __('menu.my_adverts') }}
                                         </a>
                                     </li>
                                     <li role="separator" class="divider"></li>
@@ -103,7 +103,7 @@
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            {{ __('menu.logout') }}
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -133,8 +133,8 @@
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <!-- Left Side Of Navbar -->
                         <ul class="nav navbar-nav">
-                        <li><a href="{{ route('category.create') }}">Create category</a></li>
-                        <li><a href="{{ route('filter.create') }}">Create filter</a></li>
+                        <li><a href="{{ route('category.create') }}">{{ __('menu.create_category') }}</a></li>
+                        <li><a href="{{ route('filter.create') }}">{{ __('menu.create_filter') }}</a></li>
                         </ul>
                     </div>
                 </div>

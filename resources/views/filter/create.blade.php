@@ -8,28 +8,28 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="in_adverts_list">
-                        <input id="in_adverts_list" type="checkbox" name="in_adverts_list"> Show in table
+                        <input id="in_adverts_list" type="checkbox" name="in_adverts_list"> {{ __('forms.show_in_table') }}
                     </label>
-                    <small class="help-block">Show in adverts table as column</small>
+                    <small class="help-block">{{ __('forms.show_in_table_description') }}</small>
                 </div>
                 <div class="form-group">
                     <label for="in_filters">
-                        <input id="in_filters" type="checkbox" name="in_filters"> Show in filters
+                        <input id="in_filters" type="checkbox" name="in_filters"> {{ __('forms.show_in_filters') }}
                     </label>
-                    <small class="help-block">Show this filter in filters section</small>
+                    <small class="help-block">{{ __('forms.show_in_filters_description') }}</small>
                 </div>
                 <div class="form-group">
                     <label for="in_all_categories">
-                        <input id="in_all_categories" type="checkbox" name="in_all_categories"> For all categories
+                        <input id="in_all_categories" type="checkbox" name="in_all_categories"> {{ __('forms.for_all_categories') }}
                     </label>
-                    <small class="help-block">Then no need to select categories below</small>
+                    <small class="help-block">{{ __('forms.for_all_categories_description') }}</small>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="category_parent_id">Category parent</label>
+                    <label for="category_parent_id">{{ __('forms.parent_category') }}</label>
                     <select class="form-control" name="category_parent_id" id="category_parent_id">
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{ $category->name }}</option>
@@ -39,7 +39,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="category_id">Category</label>
+                    <label for="category_id">{{ __('forms.category') }}</label>
                     <select class="form-control" name="category_id" id="category_id">
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{ $category->name }}</option>
@@ -49,7 +49,7 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="type">Filter type</label>
+                    <label for="type">{{ __('forms.filter_type') }}</label>
                     <select class="form-control" name="type" id="type">
                         <option value="select">Select</option>
                         <option value="check">Check box</option>
@@ -62,8 +62,8 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="key">Key</label>
-                    <input placeholder="Unique filter key" class="form-control" type="text" id="key" name="key">
+                    <label for="key">{{ __('forms.key') }}</label>
+                    <input placeholder="{{ __('forms.unique_key') }}" class="form-control" type="text" id="key" name="key">
                 </div>
             </div>
             <div class="col-sm-12">
@@ -74,18 +74,18 @@
                         </div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">{{ __('forms.name') }}</label>
                                 <input placeholder="name" class="form-control" type="text" id="name" name="{{$key}}[name]">
                             </div>
                             <div class="form-group">
-                                <label for="value">Value</label>
+                                <label for="value">{{ __('forms.value') }}</label>
                                 <input placeholder="value" class="form-control" type="text" id="value" name="{{$key}}[value]">
                             </div>
                         </div>
                     </div>
                 @endforeach
                 <div class="form-group text-right">
-                    <button class="btn btn-success">Create</button>
+                    <button class="btn btn-success">{{ __('forms.create') }}</button>
                 </div>
             </div>
         </div>
