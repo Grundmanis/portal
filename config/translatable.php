@@ -63,7 +63,7 @@ return [
     | set it to false.
     |
     */
-    'fallback_locale' => 'lv',
+    'fallback_locale' => 'ru',
 
     /*
     |--------------------------------------------------------------------------

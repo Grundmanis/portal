@@ -69,9 +69,6 @@ class RouteServiceProvider extends ServiceProvider
 
         });
 
-        Route::bind('locale', function($value) {
-            App::setLocale($value);
-        });
         Route::bind('category', function($id) {
             return Category::findOrFail($id);
         });
