@@ -44,22 +44,6 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    {{--<ul class="nav navbar-nav">--}}
-                        {{--<li><a href="{{ route('login') }}">Login</a></li>--}}
-                        {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
-                    {{--</ul>--}}
-
-                    {{--<div class="col-sm-6 col-md-6">--}}
-                        {{--<form class="navbar-form" role="search">--}}
-                            {{--<div class="input-group">--}}
-                                {{--<input type="text" class="form-control" placeholder="Search" name="q">--}}
-                                {{--<div class="input-group-btn">--}}
-                                    {{--<button class="btn btn-success" type="submit">Go!</button>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</form>--}}
-                    {{--</div>--}}
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -155,7 +139,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-
 
 </body>
 </html>
