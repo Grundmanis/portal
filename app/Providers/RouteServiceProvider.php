@@ -33,6 +33,16 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('categories', function($value) {
 
+            // Force adverts show in category
+            if (strpos($value, '/show')) {
+                $show = explode('/show', $value);
+                if (empty($show[1])) {
+                    dd('exception3');
+                }
+                $value = $show[0];
+                $this->data['show'] = str_replace('/', '', $show[1]);
+            }
+
             // Slugs
             $slugs = explode('/', $value);
             $totalSlugs = count($slugs);

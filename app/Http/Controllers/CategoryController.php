@@ -31,23 +31,29 @@ class CategoryController extends Controller
         $category = $request->categories['category'];
         $categoryChild = $category->child;
 
-        if ($categoryChild->isEmpty() || $request->has('show') || $request->has('page')) {
+        if ($categoryChild->isEmpty() || !empty($request->categories['show']) || $request->has('page')) {
 
             $adverts = $category->adverts();
 
             // Get ordered by date
-            $show = $request->get('show');
-            if ($show) {
-                $whereDate = Carbon::now();
+            if (!empty($request->categories['show'])) {
+                $show = $request->categories['show'];
 
                 // Dynamic days
                 $forDays = explode('for_days_', $show);
                 if (!empty($forDays[1])) {
-                    $whereDate = $whereDate->subDays($forDays[1])->toDateString();
+                    $whereDate = Carbon::now()->subDays($forDays[1])->toDateString();
                 }
 
-                // Apply query by date
-                $adverts = $adverts->whereDate('adverts.created_at', '>=' , $whereDate);
+                if ($show == 'today') {
+                    $whereDate = Carbon::today();
+                }
+
+                if (isset($whereDate)) {
+                    // Apply query by date
+                    $adverts = $adverts->whereDate('adverts.created_at', '>=' , $whereDate);
+                }
+
             }
 
             $adverts = $adverts->orderBy('id','desc')->with('filters')->paginate(1);

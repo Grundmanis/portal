@@ -1,7 +1,15 @@
 var showAdvertSelect = document.getElementById('showAdverts');
 if (showAdvertSelect) {
     showAdvertSelect.onchange = function (e) {
-        var currentUrl = window.location.href.split('?')[0];
-        window.location.href = currentUrl + '?show=' + this.value;
+        var urlSplit = window.location.href.split('show/'),
+            currentUrl = urlSplit[0],
+            getParams = '',
+            url = 'show/';
+
+        if (urlSplit[1]) {
+            getParams = urlSplit[1].split('?');
+        }
+
+        window.location.href = currentUrl + url + this.value + (getParams[1] ? '?' + getParams : '');
     };
 }
