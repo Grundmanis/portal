@@ -41,8 +41,14 @@ class CategoryController extends Controller
             ]);
         }
 
+        $slug = '';
+        foreach ($request->categories['categories'] as $category) {
+            $slug .= $category->slug . '/';
+        }
+
         return view('category.index',[
-            'categories' => $categoryChild
+            'categories' => $categoryChild,
+            'slug' => $slug
         ]);
     }
 

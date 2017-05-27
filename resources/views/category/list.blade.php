@@ -1,5 +1,5 @@
 <?php
-$route = !isset($route) ? route('category.categories',[$category->slug]) : $route . '/' . $category->slug;
+$route = !isset($route) ? route('category.categories',[(isset($slug) ? $slug : '') . $category->slug]) : $route . '/' . $category->slug;
 ?>
 
 <li>
