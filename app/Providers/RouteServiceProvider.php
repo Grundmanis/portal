@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->data['categories'] = $categories = Category::whereIn('slug',$slugs)->orderBy('id')->get();
 
             // Exception
-            if ($categories->isEmpty()) dd('exception');
+            if ($categories->isEmpty()) dd('exception1');
 
             $this->data['category'] = $category = $categories->last();
 
@@ -58,7 +58,7 @@ class RouteServiceProvider extends ServiceProvider
             );
 
             // Exception
-            if (!$allFound || !$onlyOneCategory && !$parentExist) dd('exception');
+            if (!$allFound || !$onlyOneCategory && !$parentExist) dd('exception2');
 
             // Add parentCategory
             if (!$onlyOneCategory) {

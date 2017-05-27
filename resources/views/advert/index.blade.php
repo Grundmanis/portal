@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @include('category/filters')
     @if($adverts->count())
     <table class="table table-bordered">
         <thead>

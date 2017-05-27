@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\CategoryRelation;
 use App\Service\CategoryService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
@@ -29,8 +31,26 @@ class CategoryController extends Controller
         $category = $request->categories['category'];
         $categoryChild = $category->child;
 
-        if ($categoryChild->isEmpty()) {
-            $adverts = $category->adverts()->orderBy('id','desc')->with('filters')->paginate(5);
+        if ($categoryChild->isEmpty() || $request->has('show') || $request->has('page')) {
+
+            $adverts = $category->adverts();
+
+            // Get ordered by date
+            $show = $request->get('show');
+            if ($show) {
+                $whereDate = Carbon::now();
+
+                // Dynamic days
+                $forDays = explode('for_days_', $show);
+                if (!empty($forDays[1])) {
+                    $whereDate = $whereDate->subDays($forDays[1])->toDateString();
+                }
+
+                // Apply query by date
+                $adverts = $adverts->whereDate('adverts.created_at', '>=' , $whereDate);
+            }
+
+            $adverts = $adverts->orderBy('id','desc')->with('filters')->paginate(1);
             $filters = $category->filters()->where('in_adverts_list',1);
 
             return view('advert.index',[
@@ -101,7 +121,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        dd(2);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @include('category/filters')
     <ul>
         @foreach($categories as $category)
             @include('category/list')
