@@ -15,7 +15,7 @@
 
                 <div class="col-sm-3" v-if="categoriesSelected">
                     <div class="form-group">
-                        <button v-on:click="getCategoryFilters()" class="btn btn-success">{{ trans.continue }}</button>
+                        <button v-on:click="getFilters()" class="btn btn-success">{{ trans.continue }}</button>
                     </div>
                 </div>
 
@@ -25,8 +25,9 @@
             <h3>{{ trans.step }} 2</h3>
             <form enctype="multipart/form-data" method="post">
                 <input type="hidden" v-model="token" name="_token">
-                <input type="hidden" v-model="category_id" name="category_id">
-                <input type="hidden" v-model="category_parent_id" name="category_parent_id">
+                <input type="hidden" v-model="categoryId" name="categoryId">
+                <input type="hidden" v-model="categoryParentId" name="categoryParentId">
+                <input type="hidden" v-for="category in selectedCategories" :value="category.id" name="categories[]" />
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
@@ -70,8 +71,8 @@
                 selectedCategories: [0],
                 categoriesSelected: false,
                 step: 1,
-                category_id: 0,
-                category_parent_id: 0,
+                categoryId: 0,
+                categoryParentId: 0,
                 filters: {},
                 trans: JSON.parse(this.translations)
             }
@@ -98,14 +99,14 @@
                     this.categoriesSelected = true;
                 }
             },
-            getCategoryFilters() {
+            getFilters() {
 
                 let index = this.selectedCategories.length - 1,
                     category = this.selectedCategories[index].slug,
                     parentCategory = this.selectedCategories[index-1].slug;
 
-                this.category_id = this.selectedCategories[index].id;
-                this.category_parent_id = this.selectedCategories[index-1].id;
+                this.categoryId = this.selectedCategories[index].id;
+                this.categoryParentId = this.selectedCategories[index-1].id;
 
                 this.$http.get('/filter/' + parentCategory + '/' + category + '/').then(function(response) {
                     if (response.ok) {

@@ -27,4 +27,8 @@ class Category extends Model
         return $this->hasMany(Filter::class);
     }
 
+    public function adverts() {
+        return $this->belongsToMany(Advert::class,'advert_categories');
+    }
+
 }

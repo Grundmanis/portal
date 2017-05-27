@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
+use App\AdvertCategory;
 use App\AdvertFilter;
 use App\Category;
 use App\Http\Requests\MessageRequest;
@@ -53,6 +54,15 @@ class AdvertController extends Controller
         $advert->user_id = Auth::user()->id;
         $advert->fill($data)->save();
 
+        // Save categories
+        $categories = collect();
+        foreach ($data['categories'] as $category) {
+            $categories->push(new AdvertCategory([
+                'category_id' => $category,
+            ]));
+        }
+
+        $advert->categories()->saveMany($categories);
         // Save advert filters
         $filters = $images = collect();
         if (!empty($data['filters'])) {
@@ -67,11 +77,11 @@ class AdvertController extends Controller
             $advert->filters()->saveMany($filters);
         }
 
-        // Save images
-        $date = strtotime(date('Y-m-d',time()));
-        $folder = config('filesystems.uploads_folder') . $date . '/' . $advert->id . '/';
-
         if (!empty($data['images'])) {
+            // Save images
+            $date = strtotime(date('Y-m-d',time()));
+            $folder = config('filesystems.uploads_folder') . $date . '/' . $advert->id . '/';
+
             foreach ($data['images'] as $k => $file) {
 
                 // create folder
@@ -114,67 +124,10 @@ class AdvertController extends Controller
                     ]));
                 }
             }
-        }
 
-        $advert->images()->saveMany($images);
+            $advert->images()->saveMany($images);
+        }
         
-        return redirect('/');
-    }
-
-    public function store_bak (Request $request)
-    {
-        $data = $request->all();
-
-        $advert = new Advert();
-        $advert->fill($data);
-        $advert->user_id = Auth::user()->id;
-        $advert->save();
-
-        $unix = strtotime($advert->created_at);
-        $date = date('Y-m-d',$unix);
-        $folder = strtotime($date);
-
-        unset($data['_token']);
-        unset($data['category_id']);
-        unset($data['category_parent_id']);
-
-        // Save advert filters
-        $filters = [];
-        foreach ($data as $id => $value) {
-
-            if (!$value) continue;
-
-            if ($id == 'images') {
-                $id = AdvertFilter::IMAGE_ID;
-                $images = [];
-                foreach ($value as $v) {
-                    $fileName = $v->getClientOriginalName();
-                    $path = 'uploads/images/' . $folder . '/' . $advert->id . '/';
-                    $v->move($path, $fileName);
-
-                    $image = Image::make($path.$fileName);
-                    $image->resize(100,80);
-
-                    if(!File::exists($path)) {
-                        File::makeDirectory($path, $mode = 0777, true, true);
-                    }
-
-                    $v = $path . 'thumb_'.$fileName;
-                    $image->save($v);
-                    $images[] = $v;
-                }
-                $value = json_encode($images);
-            }
-
-            $filters[] = new AdvertFilter([
-                'advert_id' => $advert->id,
-                'filter_id' => $id,
-                'value' => $value
-            ]);
-        }
-
-        $advert->filters()->saveMany($filters);
-
         return redirect('/');
     }
 

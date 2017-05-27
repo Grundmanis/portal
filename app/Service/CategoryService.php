@@ -66,11 +66,7 @@ class CategoryService
      * @return $this
      */
     public function getAdverts() {
-        $this->adverts = Advert::where('category_id',$this->category->id);
-        if ($this->categoryParent) {
-            $this->adverts = $this->adverts->where('category_parent_id',$this->categoryParent->id);
-        }
-        $this->adverts = $this->adverts->orderBy('id','desc')->with('filters')->paginate(5);
+        $this->adverts = $this->category->adverts()->orderBy('id','desc')->with('filters')->paginate(5);
         return $this;
     }
 
