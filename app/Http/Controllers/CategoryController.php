@@ -25,22 +25,24 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function categories(Request $request) {
-        $service = new CategoryService($request);
 
-        if ($service->categoryChild->isEmpty()) {
-            $service->getAdverts()
-                ->getCategoryFilters();
+        $category = $request->categories['category'];
+        $categoryChild = $category->child;
+
+        if ($categoryChild->isEmpty()) {
+            $adverts = $category->adverts()->orderBy('id','desc')->with('filters')->paginate(5);
+            $filters = $category->filters()->where('in_adverts_list',1);
 
             return view('advert.index',[
-                'adverts' => $service->adverts,
-                'category' => $service->category,
-                'filters' => $service->filters,
+                'adverts' => $adverts,
+                'category' => $category,
+                'filters' => $filters,
                 'user' => Auth::user()
             ]);
         }
 
         return view('category.index',[
-            'categories' => $service->categoryChild
+            'categories' => $categoryChild
         ]);
     }
 
