@@ -25,9 +25,9 @@ Route::group([
 
     // Filters
     Route::group(['prefix' => 'filter', 'middleware' => 'admin'], function(){
-        Route::get('{category_slug}/{subcategory_slug}', 'FilterController@show')->name('filter.show');
         Route::get('create', 'FilterController@create')->name('filter.create');
         Route::post('create', 'FilterController@store')->name('filter.store');
+        Route::get('{category}', 'FilterController@show')->name('filter.show');
     });
 
     // Adverts

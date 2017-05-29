@@ -1,8 +1,10 @@
 <template>
     <div class="form-group">
-        <div v-if="filter.type == 'textarea'">
+        <div v-if="filter.type == 'select'">
             <label :for="filter.key">{{ filter.name }}</label>
-            <textarea style="resize: none" class="form-control" :id="filter.key" cols="30" rows="10" :name="filter.id"></textarea>
+            <select class="form-control" :id="filter.key" :name="filter.id">
+                <option :value="value" v-for="value in filter.value">{{value}}</option>
+            </select>
         </div>
         <div v-if="filter.type == 'input'">
             <div class="form-group">

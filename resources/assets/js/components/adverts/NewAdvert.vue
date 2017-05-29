@@ -74,7 +74,8 @@
                 categoryId: 0,
                 categoryParentId: 0,
                 filters: {},
-                trans: JSON.parse(this.translations)
+                trans: JSON.parse(this.translations),
+                mainCategory: {}
             }
         },
         components: { Filters },
@@ -82,6 +83,10 @@
             categoryChanged(index) {
                 let nextIndex = index+1,
                     child = this.selectedCategories[index].child;
+
+                if (!this.selectedCategories[index]['secondary']) {
+                    this.mainCategory = this.selectedCategories[index];
+                }
 
                 // If it's not the last category
                 if (child && child.length) {
@@ -101,14 +106,7 @@
             },
             getFilters() {
 
-                let index = this.selectedCategories.length - 1,
-                    category = this.selectedCategories[index].slug,
-                    parentCategory = this.selectedCategories[index-1].slug;
-
-                this.categoryId = this.selectedCategories[index].id;
-                this.categoryParentId = this.selectedCategories[index-1].id;
-
-                this.$http.get('/filter/' + parentCategory + '/' + category + '/').then(function(response) {
+                this.$http.get('/filter/' + this.mainCategory['id']).then(function(response) {
                     if (response.ok) {
                         this.filters = response.data.filters;
                         this.step++;

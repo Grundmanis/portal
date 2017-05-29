@@ -11,7 +11,7 @@ class Category extends Model
 
     public $translatedAttributes = ['name'];
     protected $with = ['child'];
-    protected $fillable = ['slug'];
+    protected $fillable = ['slug','secondary'];
 
     public function parents()
     {
@@ -24,7 +24,7 @@ class Category extends Model
     }
 
     public function filters() {
-        return $this->hasMany(Filter::class);
+        return $this->belongsToMany(Filter::class, 'category_filters');
     }
 
     public function adverts() {

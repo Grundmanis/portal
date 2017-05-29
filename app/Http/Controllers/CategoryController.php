@@ -16,6 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
+
         $categories = Category::with('parents', 'translations', 'child.translations')->get();
         return view('home',compact('categories'));
     }

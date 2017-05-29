@@ -19,6 +19,10 @@
                     <input placeholder="{{ __('forms.slug_description') }}" class="form-control" type="text" id="slug" name="slug">
                 </div>
                 <div class="form-group">
+                    <input type="checkbox" name="secondary" id="secondary">
+                    <label for="secondary">{{ __('forms.category_secondary') }}</label>
+                </div>
+                <div class="form-group">
                     <label for="parent_id">{{ __('forms.parent_categories') }}</label>
                     <select class="form-control" name="parent_id[]" multiple id="parent_id">
                         @foreach($categories as $category)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\CategoryFilter;
 use App\Filter;
 use Illuminate\Http\Request;
 
@@ -40,22 +41,30 @@ class FilterController extends Controller
     {
         $filter = new Filter();
         $filter->fill($request->all())->save();
+
+        $categories = collect();
+        if (!empty($request['categories'])) {
+            foreach ($request['categories'] as $category_id) {
+                $categories->push(new CategoryFilter([
+                    'category_id' => $category_id
+                ]));
+            }
+            $filter->categories()->saveMany($categories);
+        }
         return redirect('/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Request  $request
+     * @param $category
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function show(Request $request)
+    public function show($category)
     {
-        $category = $request->subcategory_slug; // 3 vacancies
-        $parent_category = $request->category_slug; // 1 work
 
-        $filters = Filter::where('category_id',$category->id)->where('category_parent_id',$parent_category->id)->orWhere('in_all_categories',1)->get();
-
+        $filters = $category->filters()->get();
         return response()->json([
             'filters' => $filters->chunk(ceil(count($filters) / 2))
         ]);

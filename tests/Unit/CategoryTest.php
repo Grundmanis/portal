@@ -9,12 +9,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryTest extends TestCase
 {
+    use DatabaseMigrations;
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function test_categories_can_be_created()
+    public function testCategoryCanBeaCreated()
     {
         $category = factory(Category::class)->create();
         $found_category = Category::find($category->id);

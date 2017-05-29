@@ -19,6 +19,12 @@
                     <small class="help-block">{{ __('forms.show_in_filters_description') }}</small>
                 </div>
                 <div class="form-group">
+                    <label for="in_filters_double">
+                        <input id="in_filters_double" type="checkbox" name="in_filters_double"> {{ __('forms.show_in_filters_double') }}
+                    </label>
+                    <small class="help-block">{{ __('forms.show_in_filters_double_description') }}</small>
+                </div>
+                <div class="form-group">
                     <label for="in_all_categories">
                         <input id="in_all_categories" type="checkbox" name="in_all_categories"> {{ __('forms.for_all_categories') }}
                     </label>
@@ -27,20 +33,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="category_parent_id">{{ __('forms.parent_category') }}</label>
-                    <select class="form-control" name="category_parent_id" id="category_parent_id">
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="category_id">{{ __('forms.category') }}</label>
-                    <select class="form-control" name="category_id" id="category_id">
+                    <label for="category_id">{{ __('forms.categories') }}</label>
+                    <select multiple class="form-control" name="categories[]" id="category_id">
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{ $category->name }}</option>
                         @endforeach
@@ -52,11 +48,7 @@
                     <label for="type">{{ __('forms.filter_type') }}</label>
                     <select class="form-control" name="type" id="type">
                         <option value="select">Select</option>
-                        <option value="check">Check box</option>
-                        <option value="radio">Radio box</option>
                         <option value="input">Input</option>
-                        <option value="images">Images</option>
-                        <option value="textarea">Textarea</option>
                     </select>
                 </div>
             </div>

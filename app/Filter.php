@@ -10,7 +10,7 @@ class Filter extends Model
     use Translatable;
 
     public $translatedAttributes = ['name','value'];
-    protected $fillable = ['category_id','category_parent_id','type','in_adverts_list','in_filters','in_all_categories','key'];
+    protected $fillable = ['type','in_adverts_list','in_filters','in_all_categories','key','in_filters_double'];
 
     public function category() {
         return $this->belongsTo(Category::class);
@@ -30,5 +30,13 @@ class Filter extends Model
 
     public function setInAllCategoriesAttribute() {
         $this->attributes['in_all_categories'] = 1;
+    }
+
+    public function setInFiltersDoubleAttribute() {
+        $this->attributes['in_filters_double'] = 1;
+    }
+
+    public function categories() {
+        return $this->hasMany(Category::class);
     }
 }
